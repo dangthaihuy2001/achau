@@ -5,6 +5,8 @@
     define('LAYOUT','layout/');
     define('THUMBS','thumbs');
     define('WATERMARK','watermark');
+    define('VENDOR','./vendor/');
+
 
     /* Config */
     require_once LIBRARIES."config.php";

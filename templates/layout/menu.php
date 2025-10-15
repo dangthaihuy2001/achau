@@ -88,7 +88,7 @@
                             <div class="items_noti_modal">
                                 <?php foreach ($thongbaoUser as $key => $value) {
                                     if ($value['luachon'] == 'user' && isset($_SESSION[$login_member]['active'])) { ?>
-                                        <a href="<?= $value['link'] ?>" class="item_noti_modal <?= $value['hienthi'] == 0 ? 'noread' : '' ?>" data-id="<?=$value['id']?>" target="_blank">
+                                        <a href="<?= $value['link'] ?>" class="item_noti_modal <?= $value['hienthi'] == 0 ? 'noread' : '' ?>" data-id="<?= $value['id'] ?>" target="_blank">
                                             <div class="title__modal_noti">
                                                 <span><i class="far fa-bell"></i></span>
                                                 <span><?= $value['tenvi'] ?></span>
@@ -98,8 +98,8 @@
                                                 <span><?= $value['motavi'] ?></span>
                                             </div>
                                         </a>
-                                    <?php } elseif($value['luachon'] == 'all') {  ?>
-                                        <a href="<?= $value['link'] ?>" class="item_noti_modal <?= $value['hienthi'] == 0 ? 'noread' : '' ?>" target="_blank" data-id="<?=$value['id']?>">
+                                    <?php } elseif ($value['luachon'] == 'all') {  ?>
+                                        <a href="<?= $value['link'] ?>" class="item_noti_modal <?= $value['hienthi'] == 0 ? 'noread' : '' ?>" target="_blank" data-id="<?= $value['id'] ?>">
                                             <div class="title__modal_noti">
                                                 <span><i class="far fa-bell"></i></span>
                                                 <span><?= $value['tenvi'] ?></span>
@@ -114,10 +114,12 @@
                                 <?php } ?>
                             </div>
                         </div>
-                        <div class="menu_chat">
-                            <i class="fal fa-comment-alt-lines"></i>
-                            <span>1</span>
-                        </div>
+                        <?php if (isset($_SESSION[$login_member]['active']) && $_SESSION[$login_member]['active'] == true) { ?>
+                            <div class="menu_chat">
+                                <i class="fal fa-comment-alt-lines"></i>
+                                <span>1</span>
+                            </div>
+                        <?php } ?>
                         <a href="quan-ly-tin" class="menu_post">
                             <i class="fal fa-list-alt"></i> Quản lý tin
                         </a>

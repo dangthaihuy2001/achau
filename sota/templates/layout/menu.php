@@ -415,7 +415,7 @@
                                         <li class="nav-item <?= $none ?>"><a class="nav-link <?= $active ?>"
                                                 href="index.php?com=product&act=man_list&type=<?= $k ?>" title="Danh mục cấp 1"><i
                                                     class="nav-icon text-sm far fa-caret-square-right"></i>
-                                                <p>Danh mục cấp 1 1 <?=$_SESSION[$login_admin]['id']?></p>
+                                                <p>Danh mục cấp 1 </p>
                                             </a></li>
                                     <?php } ?>
                                     <?php if (isset($v['cat']) && $v['cat'] == true) {

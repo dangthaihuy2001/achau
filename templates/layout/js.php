@@ -37,8 +37,44 @@ echo $js->getJs();
 <script src="./assets/js/lazyload.min.js"></script>
 
 <script>
-    $('.item_noti_modal').click(function(){
-        
+    // const ws = new WebSocket("ws://duathichankem-local:8080/chat");
+    // const user_id = Math.floor(Math.random() * 2) + 1; // tạm: 1 hoặc 2
+    // const receiver_id = (user_id === 1) ? 2 : 1;
+    // console.log(ws)
+    // ws.onopen = () => {
+    //     ws.send(JSON.stringify({
+    //         type: 'init',
+    //         user_id
+    //     }));
+    //     console.log("Kết nối thành công WebSocket!");
+    // };
+
+    // ws.onmessage = (event) => {
+    //     const data = JSON.parse(event.data);
+    //     if (data.type === 'chat') {
+    //         const box = document.getElementById('chat-box');
+    //         box.innerHTML += `<div class="msg"><b>Người ${data.sender_id}:</b> ${data.message}</div>`;
+    //         box.scrollTop = box.scrollHeight;
+    //     }
+    // };
+
+    // document.getElementById('send').onclick = () => {
+    //     const msg = document.getElementById('msg').value.trim();
+    //     if (msg === '') return;
+    //     ws.send(JSON.stringify({
+    //         type: 'chat',
+    //         sender_id: user_id,
+    //         receiver_id,
+    //         message: msg
+    //     }));
+    //     document.getElementById('chat-box').innerHTML += `<div class="msg me">Bạn: ${msg}</div>`;
+    //     document.getElementById('msg').value = '';
+    // };
+</script>
+
+<script>
+    $('.item_noti_modal').click(function() {
+
     })
 
     const body = document.querySelector("body");
@@ -71,7 +107,7 @@ echo $js->getJs();
 
     $('.item_m_city').click(function() {
         document.cookie = "location=" + $(this).data('id');
-        if(SOURCE=='index'){
+        if (SOURCE == 'index') {
             window.location.href = ''
         }
         closeModal()
@@ -80,14 +116,14 @@ echo $js->getJs();
         document.cookie = "location=" + $(this).data('id');
         closeModal()
     })
-    $('.menu_noti').click(function(e){
+    $('.menu_noti').click(function(e) {
         e.stopPropagation()
         $('.modal_noti').show()
     })
-    $('.modal_noti').click(function(e){
+    $('.modal_noti').click(function(e) {
         e.stopPropagation()
     })
-    $(document).click(function(){
+    $(document).click(function() {
         $('.modal_noti').hide()
     })
     $(document).ready(function() {
@@ -127,6 +163,17 @@ echo $js->getJs();
             $('.items_vitri--menu').removeClass('active');
         } else {
             $('.items_vitri--menu').addClass('active');
+        }
+    })
+    $('.qt_sanpham').click(function(e) {
+        e.preventDefault();
+
+        if (!$(this).hasClass('active')) {
+            $(this).addClass('active')
+            $(this).html('<i class="fas fa-heart"></i>')
+        } else {
+            $(this).removeClass('active')
+            $(this).html('<i class="fal fa-heart"></i>')
         }
     })
 

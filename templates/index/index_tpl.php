@@ -16,7 +16,7 @@
                             <?= $value['tenvi'] ?>
                         </div>
                     </a>
-            <?php } ?>
+                <?php } ?>
             </div>
         </div>
     </section>
@@ -76,11 +76,12 @@
                                 <img src="assets/images/product-user.svg" alt=""> <?= $func->getTime($value['ngaytao']) ?>
                             </div>
                             <div class="qt_sanpham">
-                                <?php if ($key % 2 == 0) { ?>
+                                <i class="fal fa-heart"></i>
+                                <?php /* if ($key % 2 == 0) { ?>
                                     <i class="fas fa-heart"></i>
                                 <?php } else { ?>
                                     <i class="fal fa-heart"></i>
-                                <?php   } ?>
+                                <?php   } */ ?>
                             </div>
                         </div>
                     </div>
@@ -88,7 +89,7 @@
             <?php } ?>
         </div>
         <div class="readmore text-center">
-            <a href="">Xem thêm <i class="fal fa-arrow-right"></i></a>
+            <a href="san-pham">Xem thêm <i class="fal fa-arrow-right"></i></a>
         </div>
     </div>
 </section>

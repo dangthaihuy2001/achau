@@ -1,33 +1,49 @@
-<div class="title"><?=(@$title_cat!='')?$title_cat:@$title_crumb?></div>
+<div class="title"><?= (@$title_cat != '') ? $title_cat : @$title_crumb ?></div>
 <div class="content-main w-clear">
-    <?php if(isset($product) && count($product) > 0){?>
-    <div class="loadkhung_product1 mainkhung_product">
-        <?php foreach($product as $k=>$v){?>
-            <div class="boxproduct_item">
-                <a class="boxproduct_img" href="<?=$v['tenkhongdauvi']?>"><span><img onerror="this.src='<?=THUMBS?>/380x270x2/assets/images/noimage.png';" src="<?=THUMBS?>/380x270x2/<?=UPLOAD_PRODUCT_L.$v['photo']?>" alt="<?=$v['ten'.$lang]?>"/></span></a>
-                <div class="boxproduct_info">
-                    <div class="boxproduct_name"><a href="<?=$v['tenkhongdauvi']?>" title="<?=$v['tenvi']?>"><?=$v['ten'.$lang]?></a></div>
-                    <div class="boxproduct_price">Giá: <span><?=$func->format_money($v['gia'])?></span></div>
-
-                </div>
-            </div>
-        <?php } ?>
-    </div>
-    <?php }else{?>
+    <?php if (isset($product) && count($product) > 0) { ?>
+        <div class="items_sanpham">
+            <?php foreach ($product as $key => $value) { ?>
+                <a href="<?= $value['tenkhongdauvi'] ?>" class="item_sanpham">
+                    <div class="img_sanpham scale-img">
+                        <img class="skeleton mm-lazyload" data-src="<?= UPLOAD_PRODUCT_L . $value['photo'] ?>" alt="<?= $value['tenvi'] ?>" title="<?= $value['tenvi'] ?>">
+                    </div>
+                    <div class="content_sanpham">
+                        <div class="title_sanpham">
+                            <?= $value['tenvi'] ?>
+                        </div>
+                        <div class="gia_sanpham">
+                            Giá: <?= $func->format_money($value['gia']) ?>
+                        </div>
+                        <div class="tinhthanh_sanpham">
+                            <i class="fas fa-map-marker-alt"></i> TP.Hồ Chí Minh
+                        </div>
+                        <div class="thongtin_sanpham">
+                            <div class="time_sanpham">
+                                <img src="assets/images/product-user.svg" alt=""> <?= $func->getTime($value['ngaytao']) ?>
+                            </div>
+                            <div class="qt_sanpham">
+                                <i class="fal fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php } ?>
+        </div>
+    <?php } else { ?>
         <div class="alert alert-warning" role="alert">
-            <strong><?=khongtimthayketqua?></strong>
+            <strong><?= khongtimthayketqua ?></strong>
         </div>
-    <?php }?>
+    <?php } ?>
     <div class="clear"></div>
-    <div class="pagination-home"><?=(isset($paging) && $paging != '') ? $paging : ''?></div>
+    <div class="pagination-home"><?= (isset($paging) && $paging != '') ? $paging : '' ?></div>
 </div>
-<?php if($noidung_page!=''){?>
-<div class="noidung_page_product">
-    <div class="meta-toc">
-        <div class="box-readmore">
-            <ul class="toc-list" data-toc="article" data-toc-headings="h1, h2, h3"></ul>
+<?php if ($noidung_page != '') { ?>
+    <div class="noidung_page_product">
+        <div class="meta-toc">
+            <div class="box-readmore">
+                <ul class="toc-list" data-toc="article" data-toc-headings="h1, h2, h3"></ul>
+            </div>
         </div>
+        <div id="toc-content"><?= htmlspecialchars_decode($noidung_page) ?></div>
     </div>
-    <div id="toc-content"><?=htmlspecialchars_decode($noidung_page)?></div>
-</div>
-<?php }?>
+<?php } ?>

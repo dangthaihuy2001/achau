@@ -340,13 +340,9 @@ function get_item()
 	if (isset($_GET['id_copy'])) $id = htmlspecialchars($_GET['id_copy']);
 
 	if (!$id) $func->transfer("Không nhận được dữ liệu", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
-	//todo
-	if ($_SESSION[$login_admin]['id'] == 116 && $_SESSION[$login_admin]['role'] == 3) {
-		$item = $d->rawQueryOne("select * from #_product where id = ? and type = ? limit 0,1", array($id, $type));
-	} else {
-		$item = $d->rawQueryOne("select * from #_product where id = ? and id_nguoiban = ? and type = ? limit 0,1", array($id, $_SESSION[$login_admin]['id'], $type));
-	}
+	
 
+		$item = $d->rawQueryOne("select * from #_product where id = ? and type = ? limit 0,1", array($id, $type));
 
 
 	$getRating = $d->rawQuery("select id,rating,id_product from #_danhgia where id_product = ? order by id asc", array($id));

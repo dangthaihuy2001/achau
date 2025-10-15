@@ -3216,6 +3216,7 @@ section .fixwidth {
 
 .qt_sanpham .fas.fa-heart {
     color: red;
+    transition: .3s;
 }
 
 .qt_sanpham {

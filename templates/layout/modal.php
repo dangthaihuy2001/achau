@@ -85,7 +85,7 @@
 			<?php foreach ($tinhthanh_nb as $key => $value) { ?>
 				<div class="col-md-4 pl-2 pr-2 mb-3">
 					<div class="item_m_city" data-id="<?= $value['id'] ?>" data-ten="<?= $value['ten'] ?>">
-						<img src="<?= UPLOAD_PHOTO_L. $value['photo'] ?>" alt="<?= $value['ten'] ?>">
+						<img src="<?= UPLOAD_PHOTO_L . $value['photo'] ?>" alt="<?= $value['ten'] ?>">
 						<span><?= $value['ten'] ?></span>
 					</div>
 				</div>
@@ -99,8 +99,8 @@
 			<div class="items_m_city">
 				<?php foreach ($tinhthanh as $key => $value) { ?>
 					<div class="item_m--city" data-id="<?= $value['id'] ?>" data-ten="<?= $value['ten'] ?>">
-						<label class="mb-0" for="city_<?=$value['id']?>"><?= $value['ten'] ?></label>
-						<input type="radio" name="city_location" id="city_<?=$value['id']?>">
+						<label class="mb-0" for="city_<?= $value['id'] ?>"><?= $value['ten'] ?></label>
+						<input type="radio" name="city_location" id="city_<?= $value['id'] ?>">
 					</div>
 				<?php } ?>
 			</div>
@@ -111,4 +111,11 @@
 			</svg>
 		</button>
 	</div>
+</div>
+
+<div class="modal_chat">
+	<div id="chat-box"></div>
+
+	<input type="text" id="msg" placeholder="Nhập tin nhắn..." style="width:300px;">
+	<button id="send">Gửi</button>
 </div>

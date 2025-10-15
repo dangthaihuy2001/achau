@@ -106,6 +106,11 @@ if ($id != '') {
 		array_push($params, $_COOKIE['location']);
 	}
 
+	if(isset($_COOKIE['location'])){
+		array_push($params, $_COOKIE['location']);
+		$where .= " and a.id_city = ?";
+	} 
+
 	$curPage = $get_page;
 	$per_page = 6;
 	$startpoint = ($curPage * $per_page) - $per_page;
@@ -179,10 +184,11 @@ if ($id != '') {
 	$where = "a.id_list = ? and a.type = ? and a.hienthi > 0";
 	$params = array($idl, $type);
 
-	if (isset($_COOKIE['location'])) {
-		$where .= " and a.id_city = ?";
+	if(isset($_COOKIE['location'])){
 		array_push($params, $_COOKIE['location']);
-	}
+		$where .= " and a.id_city = ?";
+	} 
+
 
 	$curPage = $get_page;
 	$per_page = 20;
@@ -441,11 +447,17 @@ if ($id != '') {
 	$where = "a.type = ? and a.hienthi > 0";
 	$params = array($type);
 
+	if(isset($_COOKIE['location'])){
+		array_push($params, $_COOKIE['location']);
+		$where .= " and a.id_city = ?";
+	} 
+	// unset($_COOKIE['location']); 
+	// setcookie('location', "", -1, '/');
 	$curPage = $get_page;
 	$per_page = 20;
 	$startpoint = ($curPage * $per_page) - $per_page;
 	$limit = " limit " . $startpoint . "," . $per_page;
-	$sql = "select a.ten$lang, a.tenkhongdauvi, a.photo,a.gia from #_product a where $where order by a.stt,a.id desc $limit";
+	$sql = "select a.ten$lang, a.tenkhongdauvi, a.photo,a.gia,a.ngaytao from #_product a where $where order by a.stt,a.id desc $limit";
 	$product = $d->rawQuery($sql, $params);
 	$sqlNum = "select count(*) as 'num' from #_product a where $where order by a.stt,a.id desc";
 	$count = $d->rawQueryOne($sqlNum, $params);

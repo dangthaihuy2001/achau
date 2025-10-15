@@ -142,6 +142,10 @@ if ($com != 'tim-kiem' && $com != 'account' && $com != 'sitemap') {
 
 /* Switch coms */
 switch ($com) {
+	case 'chat':
+		$source = "chat";
+		break;
+
 	case 'lien-he':
 		$source = "contact";
 		$template = "contact/contact";
