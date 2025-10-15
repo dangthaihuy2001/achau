@@ -257,7 +257,7 @@ NN_FRAMEWORK.OwlPage = function () {
         $('.owl-tinhthanh').owlCarousel({
             rewind: true,
             autoplay: true,
-            loop: false,
+            loop: true,
             lazyLoad: false,
             mouseDrag: true,
             touchDrag: true,
