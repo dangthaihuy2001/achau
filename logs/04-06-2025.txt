@@ -1,0 +1,2 @@
+171.250.42.232(admin)--query--tables(delete from table_user_online where time < 1749005965) (10:09:25 04/06/2025)
+171.250.42.232(admin)--query--tables(delete from table_user_online where time < 1749020113) (14:05:13 04/06/2025)
