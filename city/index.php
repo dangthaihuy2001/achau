@@ -1,74 +1,74 @@
 <?php
-	session_start();
-	define('LIBRARIES','../libraries/');
-	define('SOURCES','./sources/');
-	define('TEMPLATE','./templates/');
-	define('LAYOUT','layout/');
-	define('THUMBS','../thumbs');
-	define('WATERMARK','../watermark');
+session_start();
+define('LIBRARIES', '../libraries/');
+define('SOURCES', './sources/');
+define('TEMPLATE', './templates/');
+define('LAYOUT', 'layout/');
+define('THUMBS', '../thumbs');
+define('WATERMARK', '../watermark');
 
-	require_once LIBRARIES."config.php";
-    require_once LIBRARIES.'autoload.php';
-    new AutoLoad();
-    $d = new PDODb($config['database']);
-    $seo = new Seo($d);
-    $emailer = new Email($d);
-	$func = new Functions($d);
-	$cache = new FileCache($d);	
-	$statistic = new Statistic($d, $cache);
-	/* Check HTTP */
-	//$func->checkHTTP($http,$config['arrayDomainSSL'],$config_base,$config_url);
+require_once LIBRARIES . "config.php";
+require_once LIBRARIES . 'autoload.php';
+new AutoLoad();
+$d = new PDODb($config['database']);
+$seo = new Seo($d);
+$emailer = new Email($d);
+$func = new Functions($d);
+$cache = new FileCache($d);
+$statistic = new Statistic($d, $cache);
+/* Check HTTP */
+//$func->checkHTTP($http,$config['arrayDomainSSL'],$config_base,$config_url);
 
-	/* Config type */
-	require_once LIBRARIES."config-type.php";
-  
-	/* Lang Init */
-	// require_once LIBRARIES."lang/langinit.php";
+/* Config type */
+require_once LIBRARIES . "config-type.php";
 
-	/* Setting */
-	$setting = $d->rawQueryOne("select * from #_setting limit 0,1");
-	$optsetting = (isset($setting['options']) && $setting['options'] != '') ? json_decode($setting['options'],true) : null;
-	$logo = $d->rawQueryOne("select id, photo from #_photo where type = ? and act = ? limit 0,1",array('logo','photo_static'));
+/* Lang Init */
+// require_once LIBRARIES."lang/langinit.php";
 
-	if(!empty($_COOKIE['login_admin']) && !empty($_COOKIE['login_session'])){
-		$row = $d->rawQueryOne("select * from #_user where id = ? and login_session=? and hienthi>0 limit 0,1",array($_COOKIE['login_admin'],$_COOKIE['login_session']));
-		/* Tạo Session login */
-		$_SESSION[$login_admin]['active'] = true;
-		$_SESSION[$login_admin]['username'] = $row['username'];
-		$_SESSION[$login_admin]['id'] = $row['id'];
-		$_SESSION[$login_admin]['role'] = $row['role'];
-		$_SESSION[$login_admin]['quyen'] = $row['quyen'];
-		$_SESSION[$login_admin]['token'] = $row['login_session'];
-		$_SESSION[$login_admin]['password'] = $row['password'];
-		$_SESSION[$login_admin]['login_session'] = $row['login_session'];
-		$_SESSION[$login_admin]['login_token'] = $row['user_token'];
+/* Setting */
+$setting = $d->rawQueryOne("select * from #_setting limit 0,1");
+$optsetting = (isset($setting['options']) && $setting['options'] != '') ? json_decode($setting['options'], true) : null;
+$logo = $d->rawQueryOne("select id, photo from #_photo where type = ? and act = ? limit 0,1", array('logo', 'photo_static'));
 
-		/* Cập nhật quyền của user đăng nhập */
-		$quyen = $_SESSION[$login_admin]['token'];
-		$d->rawQuery("update #_user set quyen = ? where id = ?",array($quyen,$row['id']));
+if (!empty($_COOKIE['login_admin']) && !empty($_COOKIE['login_session'])) {
+	$row = $d->rawQueryOne("select * from #_user where id = ? and login_session=? and hienthi>0 limit 0,1", array($_COOKIE['login_admin'], $_COOKIE['login_session']));
+	/* Tạo Session login */
+	$_SESSION[$login_admin]['active'] = true;
+	$_SESSION[$login_admin]['username'] = $row['username'];
+	$_SESSION[$login_admin]['id'] = $row['id'];
+	$_SESSION[$login_admin]['role'] = $row['role'];
+	$_SESSION[$login_admin]['quyen'] = $row['quyen'];
+	$_SESSION[$login_admin]['token'] = $row['login_session'];
+	$_SESSION[$login_admin]['password'] = $row['password'];
+	$_SESSION[$login_admin]['login_session'] = $row['login_session'];
+	$_SESSION[$login_admin]['login_token'] = $row['user_token'];
 
-		$success = "Đăng nhập thành công";
+	/* Cập nhật quyền của user đăng nhập */
+	$quyen = $_SESSION[$login_admin]['token'];
+	$d->rawQuery("update #_user set quyen = ? where id = ?", array($quyen, $row['id']));
 
-	}
- 
-	/* Requick */
-	include_once LIBRARIES."requick.php";
+	$success = "Đăng nhập thành công";
+}
 
-	if(isset($_GET['elfinder'])){    
-        require_once "elfinder/php/connector.minimal.php";
-        exit;
-    }
-	
+/* Requick */
+include_once LIBRARIES . "requick.php";
+
+if (isset($_GET['elfinder'])) {
+	require_once "elfinder/php/connector.minimal.php";
+	exit;
+}
+
 
 ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="<?=THUMBS?>/50x50x2/<?=UPLOAD_PHOTO_L.$logo['photo']?>" rel="shortcut icon" type="image/x-icon" />
-	<title>Administrator - <?=$setting['tenvi']?></title>
+	<link href="<?= THUMBS ?>/50x50x2/<?= UPLOAD_PHOTO_L . $logo['photo'] ?>" rel="shortcut icon" type="image/x-icon" />
+	<title>Administrator - <?= $setting['tenvi'] ?></title>
 
 	<!-- CSS -->
 	<link href="../assets/fontawesome512/all-admin.css" rel="stylesheet">
@@ -107,7 +107,7 @@
 	<!-- Ckeditor - Elfinder -->
 	<script src="ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
-		CKEDITOR.editorConfig = function( config ) {
+		CKEDITOR.editorConfig = function(config) {
 			/* Config General */
 			config.language = 'vi';
 			config.skin = 'moono-lisa';
@@ -124,9 +124,8 @@
 			config.basicEntities = false;
 
 			/* Config CSS */
-			config.contentsCss =
-			[
-				'<?=$config_base?>/admin/ckeditor/contents.css'
+			config.contentsCss = [
+				'<?= $config_base ?>/admin/ckeditor/contents.css'
 			];
 
 			/* All Plugins */
@@ -143,82 +142,178 @@
 			config.filebrowserBrowseUrl = 'elfinder/index.php';
 
 			/* Config ToolBar */
-			config.toolbar = [
-				{ name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
-				{ name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'PasteFromExcel', '-', 'Undo', 'Redo' ] },
-				{ name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
-				{ name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+			config.toolbar = [{
+					name: 'document',
+					items: ['Source', '-', 'NewPage', 'Preview', 'Print', '-', 'Templates']
+				},
+				{
+					name: 'clipboard',
+					items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'PasteFromExcel', '-', 'Undo', 'Redo']
+				},
+				{
+					name: 'editing',
+					items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt']
+				},
+				{
+					name: 'forms',
+					items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField']
+				},
 				'/',
-				{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
-				{ name: 'texttransform', items: [ 'TransformTextToUppercase', 'TransformTextToLowercase', 'TransformTextCapitalize', 'TransformTextSwitcher' ] },
-				{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
-				{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-				{ name: 'insert', items: [ 'Image', 'Flash', 'Youtube', 'VideoDetector', 'Html5video', 'Video', 'Html5audio', 'Iframe', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak' ] },
+				{
+					name: 'basicstyles',
+					items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat']
+				},
+				{
+					name: 'texttransform',
+					items: ['TransformTextToUppercase', 'TransformTextToLowercase', 'TransformTextCapitalize', 'TransformTextSwitcher']
+				},
+				{
+					name: 'paragraph',
+					items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language']
+				},
+				{
+					name: 'links',
+					items: ['Link', 'Unlink', 'Anchor']
+				},
+				{
+					name: 'insert',
+					items: ['Image', 'Flash', 'Youtube', 'VideoDetector', 'Html5video', 'Video', 'Html5audio', 'Iframe', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']
+				},
 				'/',
-				{ name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize', 'lineheight' ] },
-				{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-				{ name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
-				{ name: 'about', items: [ 'About' ] }
+				{
+					name: 'styles',
+					items: ['Styles', 'Format', 'Font', 'FontSize', 'lineheight']
+				},
+				{
+					name: 'colors',
+					items: ['TextColor', 'BGColor']
+				},
+				{
+					name: 'tools',
+					items: ['Maximize', 'ShowBlocks']
+				},
+				{
+					name: 'about',
+					items: ['About']
+				}
 			];
-			
+
 			/* Config StylesSet */
-			config.stylesSet = [
-			    { name : 'Font Seguoe Regular', element : 'span', attributes : { 'class' : 'segui' } },
-			    { name : 'Font Seguoe Semibold', element : 'span', attributes : { 'class' : 'seguisb' } },
-			    { name:'Italic title', element:'span', styles:{'font-style':'italic'} },
-			    { name:'Special Container', element:'div', styles:{'background' : '#eee', 'border' : '1px solid #ccc', 'padding' : '5px 10px'} },
-			    { name:'Big', element:'big' },
-			    { name:'Small', element:'small' },
-			    { name:'Inline ', element:'q' },
-			    { name : 'marker', element : 'span', attributes : { 'class' : 'marker' } }
+			config.stylesSet = [{
+					name: 'Font Seguoe Regular',
+					element: 'span',
+					attributes: {
+						'class': 'segui'
+					}
+				},
+				{
+					name: 'Font Seguoe Semibold',
+					element: 'span',
+					attributes: {
+						'class': 'seguisb'
+					}
+				},
+				{
+					name: 'Italic title',
+					element: 'span',
+					styles: {
+						'font-style': 'italic'
+					}
+				},
+				{
+					name: 'Special Container',
+					element: 'div',
+					styles: {
+						'background': '#eee',
+						'border': '1px solid #ccc',
+						'padding': '5px 10px'
+					}
+				},
+				{
+					name: 'Big',
+					element: 'big'
+				},
+				{
+					name: 'Small',
+					element: 'small'
+				},
+				{
+					name: 'Inline ',
+					element: 'q'
+				},
+				{
+					name: 'marker',
+					element: 'span',
+					attributes: {
+						'class': 'marker'
+					}
+				}
 			];
-			
+
 			/* Config Wordcount */
 			config.wordcount = {
-			    showParagraphs: true,
-			    showWordCount: true,
-			    showCharCount: true,
-			    countSpacesAsChars: false,
-			    countHTML: false,
-			    filter: new CKEDITOR.htmlParser.filter({
-			        elements: {
-			            div: function( element ) {
-			                if(element.attributes.class == 'mediaembed') {
-			                    return false;
-			                }
-			            }
-			        }
-			    })
+				showParagraphs: true,
+				showWordCount: true,
+				showCharCount: true,
+				countSpacesAsChars: false,
+				countHTML: false,
+				filter: new CKEDITOR.htmlParser.filter({
+					elements: {
+						div: function(element) {
+							if (element.attributes.class == 'mediaembed') {
+								return false;
+							}
+						}
+					}
+				})
 			};
 		};
 	</script>
 </head>
-<body class="sidebar-mini hold-transition text-sm <?=(!isset($_SESSION[$login_admin]['active']) || $_SESSION[$login_admin]['active']==false)?'login-page':''?>">
+
+<body class="sidebar-mini hold-transition text-sm <?= (!isset($_SESSION[$login_admin]['active']) || $_SESSION[$login_admin]['active'] == false) ? 'login-page' : '' ?>">
 	<?php /* if($template == 'index' || $template == 'user/login') include TEMPLATE.LAYOUT."loader.php"; */ ?>
-    <!-- Wrapper -->
-	<?php if(isset($_SESSION[$login_admin]['active']) && ($_SESSION[$login_admin]['active'] == true)) { ?>
+	<!-- Wrapper -->
+	<?php if (isset($_SESSION[$login_admin]['active']) && ($_SESSION[$login_admin]['active'] == true) && $_SESSION[$login_admin]['role'] == 2) { ?>
 		<div class="wrapper layout-fixed">
 			<?php
-				include TEMPLATE.LAYOUT."header.php";
-				include TEMPLATE.LAYOUT."menu.php";
+			include TEMPLATE . LAYOUT . "header.php";
+			include TEMPLATE . LAYOUT . "menu.php";
 			?>
 			<div class="content-wrapper">
-				<?php if($alertlogin) { ?>
+				<?php if ($alertlogin) { ?>
 					<section class="content">
 						<div class="container-fluid">
 							<div class="alert my-alert alert-warning alert-dismissible text-sm bg-gradient-warning mt-3 mb-0">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-								<i class="icon fas fa-exclamation-triangle"></i> <?=$alertlogin?>
+								<i class="icon fas fa-exclamation-triangle"></i> <?= $alertlogin ?>
 							</div>
 						</div>
 					</section>
 				<?php } ?>
-				<?php include TEMPLATE.$template."_tpl.php"; ?>
+				<?php include TEMPLATE . $template . "_tpl.php"; ?>
 			</div>
-			<?php include TEMPLATE.LAYOUT."footer.php"; ?>
+			<?php include TEMPLATE . LAYOUT . "footer.php"; ?>
 			<?php include "assets/js/myscript.php"; ?>
-			 
+
 		</div>
-	<?php } else { include TEMPLATE."user/login_tpl.php" ; } ?>
+	<?php } else {
+		if (isset($_SESSION[$login_admin]['active']) && ($_SESSION[$login_admin]['active'] == true)) {
+			$data_capnhatquyen['quyen'] = '';
+			$d->where('id', $_SESSION[$login_admin]['id']);
+			$d->update('user', $data_capnhatquyen);
+
+			/* Hủy bỏ login */
+			unset($_SESSION[$login_admin]);
+			unset($_SESSION['list_quyen']);
+
+			unset($_COOKIE['login_admin']);
+			unset($_COOKIE['login_member_session']);
+			setcookie('login_admin', "", -1, '/');
+			setcookie('login_member_session', "", -1, '/');
+		}
+		include TEMPLATE . "user/login_tpl.php";
+	} ?>
 </body>
+
 </html>

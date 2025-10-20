@@ -274,7 +274,7 @@ if (isset($_GET['elfinder'])) {
 <body class="sidebar-mini hold-transition text-sm <?= (!isset($_SESSION[$login_admin]['active']) || $_SESSION[$login_admin]['active'] == false) ? 'login-page' : '' ?>">
 	<?php /* if($template == 'index' || $template == 'user/login') include TEMPLATE.LAYOUT."loader.php"; */ ?>
 	<!-- Wrapper -->
-	<?php if (isset($_SESSION[$login_admin]['active']) && ($_SESSION[$login_admin]['active'] == true) && $_SESSION[$login_admin]['role'] == 3) { ?>
+	<?php if (isset($_SESSION[$login_admin]['active']) && ($_SESSION[$login_admin]['active'] == true) && $_SESSION[$login_admin]['role'] == 1) { ?>
 		<div class="wrapper layout-fixed">
 			<?php
 			include TEMPLATE . LAYOUT . "header.php";
