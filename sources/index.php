@@ -1,6 +1,5 @@
 <?php
 if (!defined('SOURCES')) die("Error");
-
    
     $slider = $d->rawQuery("select ten$lang, mota$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('slide'));
     $slider2 = $d->rawQuery("select ten$lang, mota$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('slide2'));
@@ -32,7 +31,7 @@ if (!defined('SOURCES')) die("Error");
     $thanhtuu = $d->rawQuery("select photo, tenvi,motavi from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('thanh-tuu'));
     $batdongsan = $d->rawQuery("select * from #_product where hienthi>0 and type='bat-dong-san' order by stt,id desc limit 6");
     //$tinhthanh = $d->rawQuery("select ten$lang, photo,tenkhongdauvi,motavi from #_news where type = ? and hienthi > 0 order by stt,id desc", array('tinh-thanh'));
-  
+    
     
     if(isset($_COOKIE['location'])){
         $sanpham_moi = $d->rawQuery("select * from #_product where id_city = ? and noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 12",array($_COOKIE['location']));

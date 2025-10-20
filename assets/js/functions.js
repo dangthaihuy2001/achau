@@ -56,7 +56,7 @@ function onSearch(obj) {
         return false;
     } else {
         if ($('.item_vitri--menu').hasClass('active')) { //todo
-            key_city = '&id_city=' + $('.item_vitri--menu.active').attr('id');
+            key_city = '&id_city=' + $('.item_vitri--menu.active').data('id');
         }
         location.href = "tim-kiem?keyword=" + encodeURI(keyword) + key_city;
         loadPage(document.location);

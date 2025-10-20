@@ -78,7 +78,8 @@ else $dfgallery = '';
 				$act != 'saveImages' &&
 				$act != 'uploadExcel' &&
 				$act != 'save_static' &&
-				$act != 'save_photo')
+				$act != 'save_photo' &&
+				$act != 'duyet')
 			{
 				if($com != 'user')
 				{

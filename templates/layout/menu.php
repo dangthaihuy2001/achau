@@ -25,16 +25,16 @@
                 </div> -->
                 <div class="box_menu_top">
                     <div class="menu_left">
-                        <a href="">Chợ Việt</a>
-                        <a href="">Nhà Việt</a>
-                        <a href="">Việc làm</a>
+                        <a href="" target="_blank">Chợ Việt</a>
+                        <a href="" target="_blank">Nhà Việt</a>
+                        <a href="" target="_blank">Việc làm</a>
                     </div>
                     <div class="menu_right">
                         <a href="">Trang chủ</a>
-                        <a href="">Giới thiệu</a>
-                        <a href="">Liên hệ</a>
-                        <a href="">Đóng góp ý kiến</a>
-                        <a href="">Tải ứng dụng</a>
+                        <a href="gioi-thieu">Giới thiệu</a>
+                        <a href="lien-he">Liên hệ</a>
+                        <a href="dong-gop-y-kien">Đóng góp ý kiến</a>
+                        <a href="<?= $optsetting['ungdung'] ?>" target="blank">Tải ứng dụng</a>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="items_vitri--menu">
                             <?php foreach ($tinhthanh as $key => $value) { ?>
-                                <a class="item_vitri--menu <?= $func->checkLocation($value['id'], $_GET['id_city']) > 0 ? 'active' : '' ?>" id="<?= $value['id'] ?>">
+                                <a class="item_vitri--menu <?= $func->checkLocation($value['id'], $_GET['id_city']) > 0 ? 'active' : '' ?>" data-id="<?= $value['id'] ?>">
                                     <i class="far fa-angle-right"></i> <span><?= $value['ten'] ?></span>
                                 </a>
                             <?php } ?>
@@ -86,31 +86,17 @@
                                 Thông báo
                             </div>
                             <div class="items_noti_modal">
-                                <?php foreach ($thongbaoUser as $key => $value) {
-                                    if ($value['luachon'] == 'user' && isset($_SESSION[$login_member]['active'])) { ?>
-                                        <a href="<?= $value['link'] ?>" class="item_noti_modal <?= $value['hienthi'] == 0 ? 'noread' : '' ?>" data-id="<?= $value['id'] ?>" target="_blank">
-                                            <div class="title__modal_noti">
-                                                <span><i class="far fa-bell"></i></span>
-                                                <span><?= $value['tenvi'] ?></span>
-                                                <span><?= $func->timeAgo($value['ngaytao']) ?></span>
-                                            </div>
-                                            <div class="des_modal_noti">
-                                                <span><?= $value['motavi'] ?></span>
-                                            </div>
-                                        </a>
-                                    <?php } elseif ($value['luachon'] == 'all') {  ?>
-                                        <a href="<?= $value['link'] ?>" class="item_noti_modal <?= $value['hienthi'] == 0 ? 'noread' : '' ?>" target="_blank" data-id="<?= $value['id'] ?>">
-                                            <div class="title__modal_noti">
-                                                <span><i class="far fa-bell"></i></span>
-                                                <span><?= $value['tenvi'] ?></span>
-                                                <span><?= $func->timeAgo($value['ngaytao']) ?></span>
-                                            </div>
-                                            <div class="des_modal_noti">
-                                                <span><?= $value['motavi'] ?></span>
-                                            </div>
-                                        </a>
-                                    <?php  }  ?>
-
+                                <?php foreach ($thongbaoUser as $key => $value) { ?>
+                                    <a href="<?= $value['link'] ?>" class="item_noti_modal <?= $value['hienthi'] == 0 ? 'noread' : '' ?>" data-id="<?= $value['id'] ?>" target="_blank">
+                                        <div class="title__modal_noti">
+                                            <span><i class="far fa-bell"></i></span>
+                                            <span><?= $value['tenvi'] ?></span>
+                                            <span><?= $func->timeAgo($value['ngaytao']) ?></span>
+                                        </div>
+                                        <div class="des_modal_noti">
+                                            <span><?= $value['motavi'] ?></span>
+                                        </div>
+                                    </a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -120,8 +106,8 @@
                                 <span>1</span>
                             </div>
                         <?php } ?>
-                        <a href="quan-ly-tin" class="menu_post">
-                            <i class="fal fa-list-alt"></i> Quản lý tin
+                        <a href="dang-ky-ban-hang" class="menu_post">
+                            <i class="fal fa-list-alt"></i> Đăng ký bán hàng
                         </a>
                     </div>
                     <div class="menu_account">

@@ -391,8 +391,10 @@ function save_item()
 		$data['gia'] = (isset($data['gia']) && $data['gia'] != '') ? str_replace(",", "", $data['gia']) : 0;
 		$data['giamoi'] = (isset($data['giamoi']) && $data['giamoi'] != '') ? str_replace(",", "", $data['giamoi']) : 0;
 		$data['giakm'] = (isset($data['giakm']) && $data['giakm'] != '') ? $data['giakm'] : 0;
-		$data['hienthi'] = (isset($data['hienthi'])) ? 1 : 0;
-		$data['type'] = $type;
+		//$data['hienthi'] = (isset($data['hienthi'])) ? 1 : 0;
+		$data['hienthi'] = 0;
+		//$data['type'] = $type;
+		$data['type'] = 'san-pham-temp';
 
 		$id_admin_city = $d->rawQueryOne("select id, id_city, id_wards from #_user where id = ? and role = 1 limit 1", array($_SESSION[$login_admin]['id']));
 		$data['id_city'] = $id_admin_city['id_city'];

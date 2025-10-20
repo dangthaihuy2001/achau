@@ -55,6 +55,9 @@ switch ($act) {
 	case "push":
 		push();
 		break;
+	case "push_admin":
+		push_admin();
+		break;
 	/* List */
 	case "man_list":
 		get_lists();
@@ -249,7 +252,7 @@ function get_item()
 /* Save man */
 function save_item()
 {
-	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type;
+	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type, $login_admin;
 
 	if (empty($_POST)) $func->transfer("Không nhận được dữ liệu", "index.php?com=news&act=man&type=" . $type . $strUrl, false);
 
@@ -273,8 +276,9 @@ function save_item()
 			else $data['id_tags'] = "";
 		}
 		$data['hienthi'] = (isset($data['hienthi'])) ? 1 : 0;
-		if($type=='thong-bao-user'){
+		if ($type == 'thong-bao-user' || $type == 'thong-bao-admin') {
 			$data['hienthi'] = 0;
+			$data['id_nguoidang'] = $_SESSION[$login_admin]['id'];
 		}
 		$data['type'] = $type;
 	}
@@ -387,8 +391,6 @@ function save_item()
 
 function push()
 {
-	//var_dump(1);die();
-	
 	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type;
 
 	$id = 0;
@@ -403,7 +405,22 @@ function push()
 	}
 }
 
+function push_admin()
+{
 
+	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type;
+
+	$id = 0;
+	if (isset($_GET['id'])) $id = htmlspecialchars($_GET['id']);
+	$data['hienthi'] = 1;
+	$d->where('id', $id);
+	$d->where('type', $type);
+	if ($d->update('news', $data)) {
+		$func->transfer("Đẩy thông báo thành công", "index.php?com=news&act=man&type=" . $type);
+	} else {
+		$func->transfer("Cập nhật dữ liệu bị lỗi", "index.php?com=news&act=man&type=" . $type, false);
+	}
+}
 /* Delete man */
 function delete_item()
 {

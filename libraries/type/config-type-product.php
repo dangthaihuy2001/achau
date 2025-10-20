@@ -215,11 +215,86 @@
  
  
     /* Sản phẩm */
-    $nametype = "bat-dong-san";
-    $config['product'][$nametype]['title_main'] = "Bất động sản";
+    // $nametype = "bat-dong-san";
+    // $config['product'][$nametype]['title_main'] = "Bất động sản";
+    // $config['product'][$nametype]['dropdown'] = true;
+    // $config['product'][$nametype]['list'] = true;
+    // $config['product'][$nametype]['qr'] = true;
+    // $config['product'][$nametype]['cat'] = false;
+    // $config['product'][$nametype]['item'] = false;
+    // $config['product'][$nametype]['sub'] = false;
+    // $config['product'][$nametype]['brand'] = false;
+    // $config['product'][$nametype]['mau'] = false;
+    // $config['product'][$nametype]['size'] = false;
+    // $config['product'][$nametype]['danhgia'] = false; 
+    // $config['product'][$nametype]['doday'] = false;
+    // $config['product'][$nametype]['tags'] = false;
+    // $config['product'][$nametype]['import'] = true;
+    // $config['product'][$nametype]['export'] = true;
+    // $config['product'][$nametype]['view'] = false;
+    // $config['product'][$nametype]['copy'] = true;
+    // $config['product'][$nametype]['copy_image'] = true;
+    // $config['product'][$nametype]['slug'] = true;
+    // $config['product'][$nametype]['check'] = array("noibat" => "Nổi bật");
+    // $config['product'][$nametype]['images'] = true;
+    // $config['product'][$nametype]['show_images'] = true;
+    // $config['product'][$nametype]['gallery'] = array
+    // (
+    //     $nametype => array
+    //     (
+    //         "title_main_photo" => "Hình ảnh sản phẩm",
+    //         "title_sub_photo" => "Hình ảnh",
+    //         "number_photo" => 3,
+    //         "images_photo" => true,
+    //         "cart_photo" => true,
+    //         "avatar_photo" => true,
+    //         "tieude_photo" => true,
+    //         "width_photo" => 760,
+    //         "height_photo" => 540,
+    //         "thumb_photo" => '100x100x1',
+    //         "img_type_photo" => '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF'
+    //     ),
+    //     /*"video" => array
+    //     (
+    //         "title_main_photo" => "Video sản phẩm",
+    //         "title_sub_photo" => "Video",
+    //         "number_photo" => 2,
+    //         "video_photo" => true,
+    //         "tieude_photo" => true
+    //     ),
+    //     "taptin" => array
+    //     (
+    //         "title_main_photo" => "Tập tin sản phẩm",
+    //         "title_sub_photo" => "Tập tin",
+    //         "number_photo" => 2,
+    //         "file_photo" => true,
+    //         "tieude_photo" => true,
+    //         "file_type_photo" => 'doc|docx|pdf|rar|zip|ppt|pptx|DOC|DOCX|PDF|RAR|ZIP|PPT|PPTX|xls|jpg|png|gif|JPG|PNG|GIF|xls|XLS'
+    //     )*/
+    // );
+    // $config['product'][$nametype]['ma'] = true;
+    // $config['product'][$nametype]['gia'] = true;
+    // $config['product'][$nametype]['giamoi'] = false;
+    // $config['product'][$nametype]['giakm'] = false;
+    // $config['product'][$nametype]['motangan'] = false;
+    // $config['product'][$nametype]['motangan_cke'] = false;
+    // $config['product'][$nametype]['mota'] = true;
+    // $config['product'][$nametype]['mota_cke'] = true;
+    // $config['product'][$nametype]['noidung'] = true;
+    // $config['product'][$nametype]['noidung_cke'] = true;
+    // $config['product'][$nametype]['seo'] = true;
+    // $config['product'][$nametype]['width'] = 300;
+    // $config['product'][$nametype]['height'] = 400;
+    // $config['product'][$nametype]['thumb'] = '100x150x1';
+    // $config['product'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF|webp|WEBP|avif|AVIF';
+
+
+    $nametype = "san-pham-temp";
+    $config['product'][$nametype]['title_main'] = "Sản phẩm (duyệt)";
     $config['product'][$nametype]['dropdown'] = true;
-    $config['product'][$nametype]['list'] = true;
+    $config['product'][$nametype]['list'] = false;
     $config['product'][$nametype]['qr'] = true;
+    $config['product'][$nametype]['duyet'] = true;
     $config['product'][$nametype]['cat'] = false;
     $config['product'][$nametype]['item'] = false;
     $config['product'][$nametype]['sub'] = false;
@@ -229,13 +304,13 @@
     $config['product'][$nametype]['danhgia'] = false; 
     $config['product'][$nametype]['doday'] = false;
     $config['product'][$nametype]['tags'] = false;
-    $config['product'][$nametype]['import'] = true;
-    $config['product'][$nametype]['export'] = true;
+    $config['product'][$nametype]['import'] = false;
+    $config['product'][$nametype]['export'] = false;
     $config['product'][$nametype]['view'] = false;
     $config['product'][$nametype]['copy'] = true;
     $config['product'][$nametype]['copy_image'] = true;
     $config['product'][$nametype]['slug'] = true;
-    $config['product'][$nametype]['check'] = array("noibat" => "Nổi bật");
+    $config['product'][$nametype]['check'] = array();
     $config['product'][$nametype]['images'] = true;
     $config['product'][$nametype]['show_images'] = true;
     $config['product'][$nametype]['gallery'] = array
@@ -272,6 +347,8 @@
             "file_type_photo" => 'doc|docx|pdf|rar|zip|ppt|pptx|DOC|DOCX|PDF|RAR|ZIP|PPT|PPTX|xls|jpg|png|gif|JPG|PNG|GIF|xls|XLS'
         )*/
     );
+    $config['product'][$nametype]['city'] = true;
+    $config['product'][$nametype]['wards'] = true;
     $config['product'][$nametype]['ma'] = true;
     $config['product'][$nametype]['gia'] = true;
     $config['product'][$nametype]['giamoi'] = false;
@@ -285,7 +362,7 @@
     $config['product'][$nametype]['seo'] = true;
     $config['product'][$nametype]['width'] = 300;
     $config['product'][$nametype]['height'] = 400;
-    $config['product'][$nametype]['thumb'] = '100x150x1';
+    $config['product'][$nametype]['thumb'] = '100x100x2';
     $config['product'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF|webp|WEBP|avif|AVIF';
 
 ?>

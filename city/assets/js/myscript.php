@@ -153,6 +153,11 @@
 	    document.location = url;
 	}
 
+	function duyetItem(url)
+	{
+	    document.location = url;
+	}
+
 	/* Delete all */
 	function deleteAll(url)
 	{
@@ -407,6 +412,7 @@
 				if(action == "delete-all-filer") deleteAllFiler(value);
 				if(action == "delete-item") deleteItem(value);
 				if(action == "delete-all") deleteAll(value);
+				if(action == "duyet-item") duyetItem(value);
 			}
 		})
 	}
@@ -1153,6 +1159,11 @@
 		$('body').on('click','#delete-item', function(){
 			var url = $(this).data("url");
 			confirmDialog("delete-item","Bạn có chắc muốn xóa mục này ?",url);
+	    });
+
+		$('body').on('click','#duyet-item', function(){
+			var url = $(this).data("url");
+			confirmDialog("duyet-item","Bạn có chắc muốn đăng mục này ?",url);
 	    });
 
 	    /* Delete all */

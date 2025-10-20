@@ -20,6 +20,7 @@
     $css->setCss("./assets/slick/slick-style.css");
     $css->setCss("./assets/css/fonts.css");
     $css->setCss("./assets/css/nivo-slider.css");
+    $css->setCss("./assets/select2/select2.css");
     $css->setCss("./assets/css/style.css");
     $css->setCss("./assets/login/login.css");
     /*

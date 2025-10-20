@@ -2,16 +2,16 @@
     <div class="wrap_right_detail">
         <div class="grid-pro-detail w-clear">
             <div class="left-pro-detail w-clear">
-                <a id="Zoom-1" class="MagicZoom" data-options="zoomMode: off; hint: off; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;" href="<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" title="<?= $row_detail['ten' . $lang] ?>"><img onerror="this.src='<?= THUMBS ?>/500x500x2/assets/images/noimage.png';" src="<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" alt="<?= $row_detail['ten' . $lang] ?>"></a>
+                <a id="Zoom-1" class="MagicZoom" data-options="zoomMode: off; hint: off; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;" href="<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" title="<?= $row_detail['ten' . $lang] ?>"><img onerror="this.src='<?= THUMBS ?>/500x500x3/assets/images/noimage.png';" src="<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" alt="<?= $row_detail['ten' . $lang] ?>"></a>
                 <?php if ($hinhanhsp) {
                     if (count($hinhanhsp) > 0) { ?>
                         <div class="gallery-thumb-pro">
                             <p class="control-carousel prev-carousel prev-thumb-pro transition"><i class="fas fa-chevron-left"></i></p>
                             <div class="owl-carousel owl-theme owl-thumb-pro">
-                                <a class="thumb-pro-detail" data-zoom-id="Zoom-1" href="<?= THUMBS ?>/500x500x2/<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" title="<?= $row_detail['ten' . $lang] ?>"><img onerror="this.src='<?= THUMBS ?>/500x500x2/assets/images/noimage.png';" src="<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" alt="<?= $row_detail['ten' . $lang] ?>"></a>
+                                <a class="thumb-pro-detail" data-zoom-id="Zoom-1" href="<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" title="<?= $row_detail['ten' . $lang] ?>"><img onerror="this.src='<?= THUMBS ?>/500x500x3/assets/images/noimage.png';" src="<?= UPLOAD_PRODUCT_L . $row_detail['photo'] ?>" alt="<?= $row_detail['ten' . $lang] ?>"></a>
                                 <?php foreach ($hinhanhsp as $v) { ?>
-                                    <a class="thumb-pro-detail" data-zoom-id="Zoom-1" href="<?= THUMBS ?>/500x500x2/<?= UPLOAD_PRODUCT_L . $v['photo'] ?>" title="<?= $row_detail['ten' . $lang] ?>">
-                                        <img onerror="this.src='<?= THUMBS ?>/500x500x2/assets/images/noimage.png';" src="<?= UPLOAD_PRODUCT_L . $v['photo'] ?>" alt="<?= $row_detail['ten' . $lang] ?>">
+                                    <a class="thumb-pro-detail" data-zoom-id="Zoom-1" href="<?= UPLOAD_PRODUCT_L . $v['photo'] ?>" title="<?= $row_detail['ten' . $lang] ?>">
+                                        <img onerror="this.src='<?= THUMBS ?>/500x500x3/assets/images/noimage.png';" src="<?= UPLOAD_PRODUCT_L . $v['photo'] ?>" alt="<?= $row_detail['ten' . $lang] ?>">
                                     </a>
                                 <?php } ?>
                             </div>
@@ -70,7 +70,7 @@
                         <li class="w-clear">
                             <label class="attr-label-pro-detail">Địa chỉ:</label>
                             <div class="attr-content-pro-detail">
-                                <span class="attr-content-pro-detail"><?= $optsetting['diachi'] ?></span>
+                                <span class="attr-content-pro-detail"><?= $func->getTable($row_detail['id_city'], 'city')['ten'] ?></span>
                             </div>
                         </li>
                         <li class="w-clear">
@@ -83,19 +83,19 @@
                     <hr>
                     <div class="box_user">
                         <img width="30" src="assets/images/userr.png" alt="">
-                        <div class="title_user">Người đăng</div>
+                        <div class="title_user">Người đăng </div>
                     </div>
                     <hr>
-                    <div class="box_call">
-                        <i class="fas fa-phone-alt"></i> Gọi điện: <span><?= $optsetting['hotline'] ?></span>
+                    <a href="tel:<?=preg_replace('/[^0-9]/','',$func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai']);?>" class="box_call">
+                        <i class="fas fa-phone-alt"></i> Gọi điện: <span><?= $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai'] ?></span>
+                    </a>
+                    <hr>
+                    <div class="box_chat">
+                        <i class="fas fa-comment-alt-lines"></i> Chat: <span><?= $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai'] ?></span>
                     </div>
                     <hr>
                     <div class="box_chat">
-                        <i class="fas fa-comment-alt-lines"></i> Chat: <span><?= $optsetting['hotline'] ?></span>
-                    </div>
-                    <hr>
-                    <div class="box_chat">
-                        <img width="40" src="assets/images/Logo-Zalo.webp" alt=""> <span><?= $optsetting['zalo'] ?></span>
+                        <img width="40" src="assets/images/Logo-Zalo.webp" alt=""> <span><?= $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai'] ?></span>
                     </div>
                     <div class="desc-pro-detail">
                         <?= (isset($row_detail['mota' . $lang]) && $row_detail['mota' . $lang] != '') ? htmlspecialchars_decode($row_detail['mota' . $lang]) : '' ?>
@@ -107,16 +107,16 @@
                     <form class="form_newsletter validation-contact" novalidate method="post" action="" enctype="multipart/form-data">
                         <div class="row">
                             <div class="input-contact col-sm-6 pl-2 pr-2">
-                                <input type="text" class="form-control" id="ten" name="ten" placeholder="<?= hoten ?>" required />
+                                <input type="text" class="form-control" id="name-newsletter" name="name-newsletter" placeholder="<?= hoten ?>" required />
                             </div>
                             <div class="input-contact col-sm-6 pl-2 pr-2">
-                                <input type="number" class="form-control" id="dienthoai" name="dienthoai" placeholder="<?= sodienthoai ?>" required />
+                                <input type="number" class="form-control" id="phone-newsletter" name="phone-newsletter" placeholder="<?= sodienthoai ?>" required />
                             </div>
                             <div class="input-contact col-sm-12 pl-2 pr-2">
-                                <textarea class="form-control" id="noidung" name="noidung" placeholder="<?= noidung ?>" required /></textarea>
+                                <textarea class="form-control" id="noidung-newsletter" name="noidung-newsletter" placeholder="<?= noidung ?>" required /></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn" name="submit-contact">Gửi thông tin <i class="fas fa-paper-plane"></i></button>
+                        <button type="submit" class="btn" name="submit-newsletter">Gửi thông tin <i class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
@@ -131,9 +131,9 @@
         <?php if (isset($product) && count($product) > 0) { ?>
             <div class="items_sanpham">
                 <?php foreach ($product as $key => $value) { ?>
-                    <a href="<?= $value['tenkhongdauvi'] ?>" class="item_sanpham">
+                    <a href="<?= $value['tenkhongdauvi'] ?>-<?= $value['id'] ?>" class="item_sanpham">
                         <div class="img_sanpham scale-img">
-                            <img class="skeleton mm-lazyload" data-src="<?= UPLOAD_PRODUCT_L . $value['photo'] ?>" alt="<?= $value['tenvi'] ?>" srcset="">
+                            <img class="skeleton mm-lazyload" data-src="<?= UPLOAD_PRODUCT_L . $value['photo'] ?>" alt="<?= $value['tenvi'] ?>" title="<?= $value['tenvi'] ?>">
                         </div>
                         <div class="content_sanpham">
                             <div class="title_sanpham">
@@ -143,18 +143,14 @@
                                 Giá: <?= $func->format_money($value['gia']) ?>
                             </div>
                             <div class="tinhthanh_sanpham">
-                                <i class="fas fa-map-marker-alt"></i> TP.Hồ Chí Minh
+                                <i class="fas fa-map-marker-alt"></i> <?= $func->getTable($value['id_city'], 'city')['ten'] ?>
                             </div>
                             <div class="thongtin_sanpham">
                                 <div class="time_sanpham">
                                     <img src="assets/images/product-user.svg" alt=""> <?= $func->getTime($value['ngaytao']) ?>
                                 </div>
                                 <div class="qt_sanpham">
-                                    <?php if ($key % 2 == 0) { ?>
-                                        <i class="fas fa-heart"></i>
-                                    <?php } else { ?>
-                                        <i class="fal fa-heart"></i>
-                                    <?php   } ?>
+                                    <i class="fal fa-heart"></i>
                                 </div>
                             </div>
                         </div>

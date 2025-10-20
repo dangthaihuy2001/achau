@@ -57,7 +57,7 @@
         <div class="title"><span>Tin Đăng Mới Nhất</span></div>
         <div class="items_sanpham">
             <?php foreach ($sanpham_moi as $key => $value) { ?>
-                <a href="<?= $value['tenkhongdauvi'] ?>" class="item_sanpham">
+                <a href="<?= $value['tenkhongdauvi'] ?>-<?= $value['id'] ?>" class="item_sanpham">
                     <div class="img_sanpham scale-img">
                         <img class="skeleton mm-lazyload" data-src="<?= UPLOAD_PRODUCT_L . $value['photo'] ?>" alt="<?= $value['tenvi'] ?>" title="<?= $value['tenvi'] ?>">
                     </div>
@@ -69,7 +69,7 @@
                             Giá: <?= $func->format_money($value['gia']) ?>
                         </div>
                         <div class="tinhthanh_sanpham">
-                            <i class="fas fa-map-marker-alt"></i> TP.Hồ Chí Minh
+                            <i class="fas fa-map-marker-alt"></i> <?=$func->getTable($value['id_city'], 'city')['ten']?>
                         </div>
                         <div class="thongtin_sanpham">
                             <div class="time_sanpham">
@@ -89,7 +89,7 @@
             <?php } ?>
         </div>
         <div class="readmore text-center">
-            <a href="san-pham">Xem thêm <i class="fal fa-arrow-right"></i></a>
+            <a class="btn_readmore_p">Xem thêm <i class="fal fa-arrow-right"></i></a>
         </div>
     </div>
 </section>

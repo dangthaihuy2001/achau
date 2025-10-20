@@ -31,6 +31,7 @@ $js->setJs("./assets/toc/toc.js");
 $js->setJs("./assets/js/lazyload.min.js");
 $js->setJs("./assets/js/functions.js");
 $js->setJs("./assets/js/jquery.nivo.slider.js");
+$js->setJs("./assets/select2/select2.full.js");
 $js->setJs("./assets/js/apps.js");
 echo $js->getJs();
 ?>
@@ -73,6 +74,48 @@ echo $js->getJs();
 </script>
 
 <script>
+    $('.btn_readmore_p').click(function() {
+        $.ajax({
+            type: "POST",
+            url: 'ajax/ajax_load_p.php',
+            dataType: 'json',
+            data: {
+                cmd: 'delete-cart',
+                code: 1,
+                ship: 1
+            },
+            success: function(result) {
+                
+            }
+        });
+    })
+
+    $('.select2').select2();
+    $('.content-main h1,.content-main h2,.content-main h3,.content-main h4,.content-main h5,.content-main h6,.content-main h7').addClass('heading_scroll');
+
+    $(window).scroll(function(e) {
+        var heading = document.querySelectorAll('.heading_scroll');
+        for (let index = 0; index < heading.length; index++) {
+            const element = heading[index];
+            if ($(element).offset().top - $(window).scrollTop() < +100) {
+                $(element).addClass('active')
+                $('.heading_scroll').not(element).removeClass('active')
+            } else {
+                $(element).removeClass('active')
+            }
+        }
+
+        var taga = document.querySelectorAll('.toc_hsnl a');
+        for (let index = 0; index < taga.length; index++) {
+            const element = taga[index];
+            if ("#" + $('.heading_scroll.active').attr('id') == $(element).data('rel')) {
+                $(element).addClass('active')
+            } else {
+                $(element).removeClass('active')
+            }
+        }
+    })
+
     $('.item_noti_modal').click(function() {
 
     })
@@ -114,12 +157,19 @@ echo $js->getJs();
     })
     $('.item_m--city').click(function() {
         document.cookie = "location=" + $(this).data('id');
+
         closeModal()
     })
     $('.menu_noti').click(function(e) {
+        if (!$(this).hasClass('active')) {
+            $(this).addClass('active')
+        } else {
+            $(this).removeClass('active')
+        }
         e.stopPropagation()
         $('.modal_noti').show()
     })
+
     $('.modal_noti').click(function(e) {
         e.stopPropagation()
     })
@@ -135,6 +185,7 @@ echo $js->getJs();
             $('.items_vitri--menu').removeClass('active')
             $(this).addClass('active')
             $('.item_vitri--menu').not($(this)).removeClass('active')
+            document.cookie = "location=" + $(this).data('id');
         })
     })
     $('.menu_chat').click(function() {

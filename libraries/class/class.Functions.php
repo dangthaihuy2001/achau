@@ -462,7 +462,11 @@ class Functions
 		header("location:$url", true, $response);
 		exit();
 	}
-
+	public function redirectBlank($url = '')
+	{
+		echo "<script>window.open('$url', '_blank');</script>";
+		exit;
+	}
 	/* Dump */
 	public function dump($value = '', $exit = false)
 	{
@@ -2002,6 +2006,11 @@ class Functions
 		$row = $this->d->rawQueryOne("select * from #_$table where id = ? limit 1", array($id));
 		return $row;
 	}
+	public function getList($table)
+	{
+		$row = $this->d->rawQuery("select * from #_$table where hienthi > 0 order by stt,id desc");
+		return $row;
+	}
 	public function checkLocation($id, $id_city = 0)
 	{
 		if ($id_city != 0) {
@@ -2048,5 +2057,45 @@ class Functions
 			$days = floor($time_difference / 86400);
 			return "$days ngày trước";
 		}
+	}
+	public function checkUserSeller_duration($id)
+	{
+		$row = $this->d->rawQueryOne("select * from #_user where id = ? and role =1 limit 1", array($id));
+		$end_time = $row['thoihan'];
+		// Nếu là chuỗi thì chuyển sang timestamp
+		//if (!is_int($end_time)) $end_time = strtotime($end_time);
+
+		$now = time();
+
+		// Gọi hàm diff
+		$datetime_now = new DateTime("@$now");
+		$datetime_end = new DateTime("@$end_time");
+		$datetime_now->setTimezone(new DateTimeZone(date_default_timezone_get()));
+		$datetime_end->setTimezone(new DateTimeZone(date_default_timezone_get()));
+
+		$diff = $datetime_now->diff($datetime_end);
+
+		$result = [
+			'years'   => $diff->y,
+			'months'  => $diff->m,
+			'days'    => $diff->d,
+			'hours'   => $diff->h,
+			'minutes' => $diff->i,
+			'seconds' => $diff->s,
+			'total_days' => $diff->days,
+			'expired' => ($end_time < $now)
+		];
+
+		$status['day'] =  $diff->d;
+		// Cảnh báo nếu còn dưới 30 ngày (và chưa hết hạn)
+		if (!$result['expired'] && $result['total_days'] < 30) {
+			$status['check'] = 0; //còn hạn dưới 30 ngày
+		} elseif ($result['expired']) {
+			$status['check'] = -1; //hết hạn
+		} else {
+			$status['check'] = 1; //còn hạn trên 30 ngày
+		}
+
+		return $status;
 	}
 }

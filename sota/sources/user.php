@@ -697,6 +697,7 @@ function save_item_admin_seller()
 		$data['role'] = 1;
 		$data['ngaysinh'] = strtotime(str_replace("/", "-", $data['ngaysinh']));
 		$data['hienthi'] = (isset($data['hienthi'])) ? 1 : 0;
+		$data['thoihan'] = strtotime(str_replace("/", "-", $data['thoihan']));
 	}
 	//$func->dump($data); die();
 	/* Kiểm tra username */

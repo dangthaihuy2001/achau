@@ -15,6 +15,13 @@
             // "photo_static" => array("background-tieuchi"),
             //"tags" => array("tin-tuc"),
             //"newsletter" => array("dangkytuyendung")
+        ),
+        "Thông báo đẩy" => array(
+            //"photo" => array("slide"),
+             "news" => array("thong-bao-user","thong-bao-admin"),
+            // "photo_static" => array("background-tieuchi"),
+            //"tags" => array("tin-tuc"),
+            //"newsletter" => array("dangkytuyendung")
         )
     );
 
@@ -65,6 +72,7 @@
     $config['setting']['toado'] = true;
     $config['setting']['slogan'] = false;
     $config['setting']['toado_iframe'] = true;
+    $config['setting']['ungdung'] = true;
 
     /* Quản lý import */
     $config['import']['images'] = false;

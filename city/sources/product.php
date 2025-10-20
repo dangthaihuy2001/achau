@@ -52,7 +52,9 @@ switch ($act) {
 	case "delete":
 		delete_item();
 		break;
-
+	case "duyet":
+		duyet_item();
+		break;
 	/* độ dày */
 	case "man_doday":
 		get_items_doday();
@@ -512,6 +514,21 @@ function save_item()
 	}
 }
 
+
+function duyet_item(){
+	global $d, $strUrl, $func, $curPage, $com, $type, $config_base;
+	
+	$id = (isset($_GET['id'])) ? htmlspecialchars($_GET['id']) : 0;
+	$row = $d->rawQueryOne("select id, tenkhongdauvi from #_product where id = ? and type = ? limit 0,1", array($id, $type));
+
+	//$func->redirectBlank($config_base.$row['tenkhongdauvi']."-".$row['id']);
+	$func->redirect($config_base."city/index.php?com=product&act=man&type=san-pham");
+	// $data['type'] = 'san-pham';
+	// $d->where('id', $id);
+	// if ($d->update('product', $data)){
+	// 	$func->transfer("Sao chép dữ liệu bị lỗi", $config_base.$row['tenkhongdauvi'], true);
+	// }
+}
 /* Delete man */
 function delete_item()
 {

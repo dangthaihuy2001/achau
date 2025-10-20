@@ -24,12 +24,12 @@
         <div class="fixwidth">
             <div class="title"><span>Ưu Đãi Chương Trình</span></div>
             <div class="row">
-                <?php foreach ($banner as $key => $value) { ?>
+                <?php foreach ($bannerUuDai as $key => $value) { ?>
                     <div class="col-md-6 pl-2 pr-2 mb-3 col-12">
-                        <div class="item_banner sacle-img">
+                        <a href="<?= $value['link'] ?>" class="item_banner sacle-img" target="_blank">
                             <img class="skeleton mm-lazyload" data-src="<?= UPLOAD_PHOTO_L . $value['photo'] ?>" alt="">
                             <div class="timhieu">Tìm hiểu ngay</div>
-                        </div>
+                        </a>
                     </div>
                 <?php   } ?>
             </div>

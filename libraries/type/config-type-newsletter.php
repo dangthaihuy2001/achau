@@ -17,6 +17,24 @@
     $config['newsletter'][$nametype]['showngaytao'] = false;
     $config['newsletter'][$nametype]['file_type'] = 'doc|docx|pdf|rar|zip|ppt|pptx|DOC|DOCX|PDF|RAR|ZIP|PPT|PPTX|xls|jpg|png|gif|JPG|PNG|GIF|xls|XLS';
 
+    $nametype = "seller";
+    $config['newsletter'][$nametype]['title_main'] = "Đăng ký bán hàng";
+    $config['newsletter'][$nametype]['file'] = false;
+    $config['newsletter'][$nametype]['email'] = false;
+    $config['newsletter'][$nametype]['guiemail'] = false;
+    $config['newsletter'][$nametype]['ten'] = true;
+    $config['newsletter'][$nametype]['dienthoai'] = true;
+    $config['newsletter'][$nametype]['diachi'] = true;
+    $config['newsletter'][$nametype]['mathang'] = true;
+    $config['newsletter'][$nametype]['chude'] = false;
+    $config['newsletter'][$nametype]['noidung'] = false;
+    $config['newsletter'][$nametype]['ghichu'] = false;
+    $config['newsletter'][$nametype]['tinhtrang'] = array("0" => "Chưa xem", "1" => "Đã xem");
+    $config['newsletter'][$nametype]['showten'] = true;
+    $config['newsletter'][$nametype]['showdienthoai'] = true;
+    $config['newsletter'][$nametype]['showngaytao'] = false;
+    $config['newsletter'][$nametype]['file_type'] = 'doc|docx|pdf|rar|zip|ppt|pptx|DOC|DOCX|PDF|RAR|ZIP|PPT|PPTX|xls|jpg|png|gif|JPG|PNG|GIF|xls|XLS';
+
 
    
 

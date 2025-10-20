@@ -10,7 +10,7 @@ $baner = $d->rawQueryOne("select id, photo from #_photo where type = ? and act =
 $splistmenu = $d->rawQuery("select ten$lang, tenkhongdauvi, id,photo from #_product_list where type = ? and hienthi > 0 order by stt,id desc", array('san-pham'));
 
 $tieuchi = $d->rawQuery("select ten$lang, mota$lang, photo from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('tieu-chi'));
-$banner = $d->rawQuery("select photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('banner-uudai'));
+$bannerUuDai = $d->rawQuery("select photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('banner-uudai'));
 $gioithieu = $d->rawQueryOne("select ten$lang, mota$lang,photo,photo1 from #_static where type = ?", array('gioi-thieu'));
 $tagsProduct = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id from #_tags where type = ? and noibat > 0 order by stt,id desc", array('san-pham'));
 
@@ -25,15 +25,7 @@ $tinhthanh = $d->rawQuery("select ten, id, photo,tenkhongdau from #_city where h
 $tinhthanh_nb = $d->rawQuery("select ten, id, photo,tenkhongdau from #_city where hienthi >0 and noibat > 0 order by stt,id desc");
 $thongbaoUser = $d->rawQuery("select ten$lang, tenkhongdau$lang,motavi, ngaytao, link, luachon from #_news where type = ? order by stt,id desc ", array('thong-bao-user'));
 
-if (isset($_SESSION[$login_member]['active'])) {
-    $countThongbao = count($thongbaoUser);
-} else {
-    $countThongbao = count(array_filter($thongbaoUser, function ($row) {
-        return isset($row['luachon']) && $row['luachon'] === 'user';
-    }));
-    $countThongbao = count($thongbaoUser) - $countThongbao;
-}
-
+$countThongbao = count($thongbaoUser);
 
 //$tagsProduct = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id from #_tags where type = ? and noibat > 0 order by stt,id desc",array('san-pham'));
 
@@ -211,4 +203,23 @@ if (isset($_POST['submit-newsletter'])) {
     } else {
         $func->transfer("Đăng ký nhận tin thất bại. Vui lòng thử lại sau.", $config_base, false);
     }
+}
+
+
+/* Newsletter */
+if (isset($_POST['submit-seller'])) {
+    
+    $data = array();
+    $data['ten'] = (isset($_REQUEST['ten-seller']) && $_REQUEST['ten-seller'] != '') ? htmlspecialchars($_REQUEST['ten-seller']) : '';
+    $data['dienthoai'] = (isset($_REQUEST['dienthoai-seller']) && $_REQUEST['dienthoai-seller'] != '') ? htmlspecialchars($_REQUEST['dienthoai-seller']) : '';
+  
+    $data['diachi'] = (isset($_REQUEST['diachi-seller']) && $_REQUEST['diachi-seller'] != '') ? htmlspecialchars($_REQUEST['diachi-seller']) : '';
+
+    $data['mathang'] = (isset($_REQUEST['mathang-seller']) && $_REQUEST['mathang-seller'] != '') ? implode(", ", $_REQUEST['mathang-seller']) : '';
+  
+    $data['ngaytao'] = time();
+    $data['type'] = 'seller';
+    $d->insert('newsletter', $data);
+
+    $func->transfer("Đăng ký nhận tin thành công!", $config_base);
 }

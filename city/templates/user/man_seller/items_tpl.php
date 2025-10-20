@@ -57,7 +57,7 @@ $linkFilter = "index.php?com=user&act=man_admin_seller&p=" . $curPage;
                         <th class="align-middle text-center" width="10%">STT</th>
                         <th class="align-middle">Tài khoản</th>
                         <th class="align-middle">Họ tên</th>
-                        <th class="align-middle">Email</th>
+                        <th class="align-middle">Thông báo</th>
                         <th class="align-middle text-center">Kích hoạt</th>
                         <th class="align-middle text-center">Thao tác</th>
                     </tr>
@@ -88,7 +88,14 @@ $linkFilter = "index.php?com=user&act=man_admin_seller&p=" . $curPage;
                                     <a class="text-dark" href="<?= $linkEdit ?>&id=<?= $items[$i]['id'] ?>&id_city=<?= $items[$i]['id_city'] ?>&id_wards=<?= $items[$i]['id_wards'] ?>" title="<?= $items[$i]['ten'] ?>"><?= $items[$i]['ten'] ?></a>
                                 </td>
                                 <td class="align-middle">
-                                    <a class="text-dark" href="<?= $linkEdit ?>&id=<?= $items[$i]['id'] ?>&id_city=<?= $items[$i]['id_city'] ?>&id_wards=<?= $items[$i]['id_wards'] ?>" title="<?= $items[$i]['email'] ?>"><?= $items[$i]['email'] ?></a>
+                                    <a class="text-dark" href="<?= $linkEdit ?>&id=<?= $items[$i]['id'] ?>&id_city=<?= $items[$i]['id_city'] ?>&id_wards=<?= $items[$i]['id_wards'] ?>" title="<?= $items[$i]['email'] ?>">
+                                        
+                                    <?php if ($func->checkUserSeller_duration($items[$i]['id'])['check'] == -1) { ?>
+                                            <span class="btn btn-danger">Đã hết hạn</span>
+                                        <?php } elseif ($func->checkUserSeller_duration($items[$i]['id'])['check'] == 0) { ?>
+                                            <span class="btn btn-warning">Sắp hết hạn</span>
+                                        <?php } ?>
+                                    </a>
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="custom-control custom-checkbox my-checkbox">

@@ -71,7 +71,7 @@
 		{
 			
 			/* Kiểm tra đăng nhập */
-			$row = $d->rawQueryOne("select * from #_user where username = ? and hienthi>0 limit 0,1",array($username));
+			$row = $d->rawQueryOne("select * from #_user where username = ? and hienthi>0 and role = 2 limit 0,1",array($username));
 
 			if(isset($row['id'])){
 				if((int)$_COOKIE['login_admin']==$row['id'] && $_COOKIE['login_session']==$row['login_session']){

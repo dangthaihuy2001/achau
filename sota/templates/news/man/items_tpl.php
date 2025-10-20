@@ -74,6 +74,9 @@ $copyImg = (isset($config['news'][$type]['copy_image']) && $config['news'][$type
                         <?php if (isset($config['news'][$type]['thongbao']) && count($config['news'][$type]['thongbao']) > 0) { ?>
                             <th class="align-middle">Lựa chọn</th>
                         <?php } ?>
+                        <?php if (isset($config['news'][$type]['thongbao_admin']) && count($config['news'][$type]['thongbao_admin']) > 0) { ?>
+                            <th class="align-middle">Lựa chọn</th>
+                        <?php } ?>
                         <?php if (isset($config['news'][$type]['gallery']) && count($config['news'][$type]['gallery']) > 0) { ?>
                             <th class="align-middle">Gallery</th>
                         <?php } ?>
@@ -147,6 +150,11 @@ $copyImg = (isset($config['news'][$type]['copy_image']) && $config['news'][$type
                                 <?php if (isset($config['news'][$type]['thongbao']) && count($config['news'][$type]['thongbao']) > 0) { ?>
                                     <td class="align-middle ">
                                         <a href="index.php?com=news&act=push&type=<?= $type?>&id=<?=$items[$i]['id']?>&p=<?= $curPage?>" class="btn btn-<?=$items[$i]['hienthi']>0?'secondary':'success'?>"><?=$items[$i]['hienthi']>0?'Đã thông báo':'Đẩy thông báo'?></a>
+                                    </td>
+                                <?php } ?>
+                                <?php if (isset($config['news'][$type]['thongbao_admin']) && count($config['news'][$type]['thongbao_admin']) > 0) { ?>
+                                    <td class="align-middle ">
+                                        <a href="index.php?com=news&act=push_admin&type=<?= $type?>&id=<?=$items[$i]['id']?>&p=<?= $curPage?>" class="btn btn-<?=$items[$i]['hienthi']>0?'secondary':'success'?>"><?=$items[$i]['hienthi']>0?'Đã thông báo':'Đẩy thông báo'?></a>
                                     </td>
                                 <?php } ?>
                                 <?php if (isset($config['news'][$type]['gallery']) && count($config['news'][$type]['gallery']) > 0) { ?>

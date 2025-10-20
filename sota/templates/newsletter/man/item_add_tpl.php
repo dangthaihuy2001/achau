@@ -78,6 +78,12 @@
                             <input type="text" class="form-control" name="data[chude]" id="chude" placeholder="Chủ đề" value="<?=@$item['chude']?>">
                         </div>
                     <?php } ?>
+                    <?php if(isset($config['newsletter'][$type]['mathang']) && $config['newsletter'][$type]['mathang'] == true) { ?>
+                        <div class="form-group col-md-12">
+                            <label for="mathang">Mặt hàng:</label>
+                            <input type="text" class="form-control" name="data[mathang]" id="mathang" placeholder="Mặt hàng" value="<?=@$item['mathang']?>">
+                        </div>
+                    <?php } ?>
                     <?php if(isset($config['newsletter'][$type]['tinhtrang']) && count($config['newsletter'][$type]['tinhtrang']) > 0) { ?>
                         <div class="form-group col-md-4">
                             <label for="tinhtrang">Tình trạng:</label>

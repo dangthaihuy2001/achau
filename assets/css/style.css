@@ -135,7 +135,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #wrapper {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 img {
@@ -182,7 +182,7 @@ input[type=number]::-webkit-inner-spin-button {
     width: 95%;
     max-width: 95%;
     margin: 0px auto;
-
+    
 }
 
 .wrap-home {
@@ -541,10 +541,6 @@ img {
 .catagory-list__fix::-webkit-scrollbar-corner {
     background-color: #ffffff;
 }
-
-
-}
-
 .catagory-list__fix::-webkit-resizer {
     background-color: #666;
 }
@@ -2249,13 +2245,16 @@ img {
     position: relative;
     float: left;
     width: 59%;
-    text-align: center;
+    /* text-align: center; */
     margin-right: 2%;
     background: white;
     border-radius: 12px;
     overflow: hidden;
 }
-
+.left-pro-detail ul{
+    list-style: unset;
+    margin-left: 20px;
+}
 .left-pro-detail .MagicZoom {
     width: 60%;
     padding: 20px;
@@ -2577,7 +2576,6 @@ img {
 /* Toc */
 .box-readmore {
     padding: 8px 15px;
-    border: 1px solid #dedede;
     margin-bottom: 2rem;
     border-radius: 5px;
     background-color: #eeeeee;
@@ -2623,7 +2621,30 @@ img {
 .box-readmore ul li a:hover {
     color: #767676;
 }
+.toc_hsnl a {
+    transition: .3s;
+    position: relative;
+    display: inline-block;
+    padding: 4px 0px;
+    z-index: 1;
+}
 
+.toc_hsnl a::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -5px;
+    width: 0%;
+    height: 100%;
+    border-bottom: 2px solid var(--color-main);
+    transition: .3s;
+    z-index: -1;
+}
+
+.toc_hsnl a.active::before {
+    width: calc(100% + 10px);
+    transition: .3s;
+}
 /* Bài viết */
 .news {
     width: 49%;
@@ -3200,6 +3221,7 @@ section .fixwidth {
 .tinhthanh_sanpham {
     margin-bottom: 6px;
     color: gray;
+    font-size: 11px;
 }
 
 .thongtin_sanpham {
@@ -3239,6 +3261,7 @@ section .fixwidth {
     border-radius: 8px;
     border: 1px solid #999;
     color: #333;
+    cursor: pointer;
 }
 
 .item_tieuchi {
@@ -3552,7 +3575,9 @@ section .fixwidth {
     align-items: center;
     gap: 10px;
 }
-
+.box_call{
+    display: inline-block;
+}
 .box_call span,
 .box_chat span {
     font-weight: 600;
@@ -3888,6 +3913,7 @@ section .fixwidth {
     display: block;
     display: none;
 }
+
 .title_modal_noti{
     font-size: 16px;
     margin-bottom: 10px;
@@ -3955,6 +3981,37 @@ section .fixwidth {
 }
 .items_noti_modal::-webkit-scrollbar {
     width: 0px;
+}
+.meta-toc{
+    position: sticky;
+    top: 10px;
+}
+.form_register input{
+    height: 40px;
+}
+.form_register{
+    position: sticky;
+    top: 20px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+}
+.form_register label{
+    color: #666;
+    font-weight: 600;
+    font-size: 13px;
+    font-style: italic;
+}
+.form_register button{
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    text-align: center;
+    color: #fff;
+    outline: none;
+    border: none;
+    background: var(--color-main);
+    border-radius: 6px;
 }
 /* Responsive */
 @media(max-width:1199px) {

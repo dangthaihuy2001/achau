@@ -1,3 +1,5 @@
+
+
 <!-- Main Sidebar -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4 text-sm">
     <!-- Logo -->
@@ -1108,7 +1110,8 @@
                                 href="index.php?com=user&amp;act=admin_edit&amp;changepass=1" title="Đổi mật khẩu"><i
                                     class="nav-icon text-sm far fa-caret-square-right"></i>
                                 <p>Đổi mật khẩu</p>
-                            </a></li>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

@@ -32,6 +32,7 @@ $router->map('GET', array('dangnhap', 'dangnhap'), function () {
 $router->map('GET|POST', '', 'index', 'home');
 $router->map('GET|POST', 'index.php', 'index', 'index');
 $router->map('GET|POST', 'sitemap.xml', 'sitemap', 'sitemap');
+$router->map('GET|POST', '[*:product]-[i:id]', 'product', 'product');
 $router->map('GET|POST', '[a:com]', 'allpage', 'show');
 $router->map('GET|POST', '[a:com]/[a:lang]/', 'allpagelang', 'lang');
 $router->map('GET|POST', '[a:com]/[a:action]', 'account', 'account');
@@ -53,6 +54,9 @@ if (is_array($match)) {
 		call_user_func_array($match['target'], $match['params']);
 	} else {
 		$com = (isset($match['params']['com'])) ? htmlspecialchars($match['params']['com']) : htmlspecialchars($match['target']);
+		$product = (isset($match['params']['product'])) ? htmlspecialchars($match['params']['product']) : htmlspecialchars($match['target']);
+		$idP = (isset($match['params']['id'])) ? htmlspecialchars($match['params']['id']) : '';
+
 		$get_page = isset($_GET['p']) ? htmlspecialchars($_GET['p']) : 1;
 	}
 } else {
@@ -89,18 +93,13 @@ $requick = array(
 	array("tbl" => "product_item", "field" => "idi", "source" => "product", "com" => "san-pham", "type" => "san-pham", 'menu' => true),
 	array("tbl" => "product", "field" => "id", "source" => "product", "com" => "san-pham", "type" => "san-pham", 'menu' => true),
 
-	/* Sản phẩm */
-	array("tbl" => "news_list", "field" => "idl", "source" => "news", "com" => "cong-trinh", "type" => "cong-trinh", 'menu' => true),
-	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "cong-trinh", "type" => "cong-trinh", 'menu' => true),
-
-
 	/* Bài viết */
 	array("tbl" => "video", "field" => "id", "source" => "news", "com" => "video", "type" => "video", 'menu' => false),
 	array("tbl" => "news_list", "field" => "idl", "source" => "news", "com" => "tin-tuc", "type" => "tin-tuc", 'menu' => true),
 	array("tbl" => "news_list", "field" => "idl", "source" => "news", "com" => "dich-vu", "type" => "dich-vu", 'menu' => true),
 	array("tbl" => "news_list", "field" => "idl", "source" => "news", "com" => "phu-kien", "type" => "phu-kien", 'menu' => true),
 	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "tin-tuc", "type" => "tin-tuc", 'menu' => true),
-	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "dich-vu", "type" => "dich-vu", 'menu' => true),
+	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "thong-bao", "type" => "thong-bao", 'menu' => true),
 	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "bang-gia", "type" => "bang-gia", 'menu' => true),
 	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "khuyen-mai", "type" => "khuyen-mai", 'menu' => true),
 	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "phu-kien", "type" => "phu-kien", 'menu' => true),
@@ -124,12 +123,17 @@ if ($com != 'tim-kiem' && $com != 'account' && $com != 'sitemap') {
 		$url_type = (isset($v['type']) && $v['type'] != '') ? $v['type'] : '';
 		$url_field = (isset($v['field']) && $v['field'] != '') ? $v['field'] : '';
 		$url_com = (isset($v['com']) && $v['com'] != '') ? $v['com'] : '';
+		$url_source = (isset($v['source']) && $v['source'] != '') ? $v['source'] : '';
 
 		if ($url_tbl != '' && $url_tbl != 'static' && $url_tbl != 'photo') {
 			if ($url_tbl == 'city') {
 				$row = $d->rawQueryOne("select id from #_$url_tbl where tenkhongdau = ? and hienthi > 0 limit 0,1", array($com));
 			} else {
-				$row = $d->rawQueryOne("select id from #_$url_tbl where $sluglang = ? and type = ? and hienthi > 0 limit 0,1", array($com, $url_type));
+				if ($url_source == 'product' && $url_tbl == 'product') {
+					$row = $d->rawQueryOne("select id from #_$url_tbl where $sluglang = ? and id = ? and type = ? and hienthi > 0 limit 0,1", array($product, $idP, $url_type));
+				} else {
+					$row = $d->rawQueryOne("select id from #_$url_tbl where $sluglang = ? and type = ? and hienthi > 0 limit 0,1", array($com, $url_type));
+				}
 			}
 			if ($row['id']) {
 				$_GET[$url_field] = $row['id'];
@@ -167,6 +171,22 @@ switch ($com) {
 		$type = $com;
 		$seo->setSeo('type', 'article');
 		$title_crumb = 'Giới thiệu';
+		break;
+
+	case 'dang-ky-ban-hang':
+		$source = "static";
+		$template = "static/dangky";
+		$type = $com;
+		$seo->setSeo('type', 'article');
+		$title_crumb = 'Đăng ký bán hàng';
+		break;
+
+	case 'thong-bao':
+		$source = "news";
+		$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
+		$seo->setSeo('type', isset($_GET['id']) ? "article" : "object");
+		$type = $com;
+		$title_crumb = "Thông báo";
 		break;
 
 	case 'tin-tuc':

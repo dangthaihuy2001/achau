@@ -1,25 +1,31 @@
 <?php
-    $countNotify = 0;
-    $contactNotify = $d->rawQuery("select id from #_contact where hienthi = 0 and type='contact' ");
-    $baogiaNotify = $d->rawQuery("select id from #_contact where hienthi = 0 and type='baogia' ");
-    //$dangkyNotify = $d->rawQuery("select id from #_newsletter where hienthi = 0 and type='baogia' ");
+$countNotify = 0;
+$contactNotify = $d->rawQuery("select id from #_contact where hienthi = 0 and type='contact' ");
+$baogiaNotify = $d->rawQuery("select id from #_contact where hienthi = 0 and type='baogia' ");
+//$dangkyNotify = $d->rawQuery("select id from #_newsletter where hienthi = 0 and type='baogia' ");
 
-    $countNotify += count($contactNotify) + count($dangkyNotify) + count($baogiaNotify);
-    if(isset($config['newsletter']))
-    {
-        foreach($config['newsletter'] as $k => $v) 
-        {
-            $emailNotify = $d->rawQuery("select id from #_newsletter where type = ? and hienthi = 0",array($k));
-            $countNotify += count($emailNotify);
-        }
-    }
 
-    if(isset($config['order']['active']))
-    {
-        $orderNotify = $d->rawQuery("select id from #_order where tinhtrang=1");
-        $countNotify += count($orderNotify);
+$countNotify += count($contactNotify) + count($dangkyNotify) + count($baogiaNotify);
+if (isset($config['newsletter'])) {
+    foreach ($config['newsletter'] as $k => $v) {
+        $emailNotify = $d->rawQuery("select id from #_newsletter where type = ? and hienthi = 0", array($k));
+        $countNotify += count($emailNotify);
     }
+}
+
+if (isset($config['order']['active'])) {
+    $orderNotify = $d->rawQuery("select id from #_order where tinhtrang=1");
+    $countNotify += count($orderNotify);
+}
 ?>
+
+<?php if ($func->checkUserSeller_duration($_SESSION[$login_admin]['id'])['check'] == 0) { ?>
+    <div class="p-3 mb-2 bg-warning text-dark text-center">
+        <strong>Tài khoản sẽ hết hạn vào <?=date("d/m/Y", $func->getAdminCurrent($_SESSION[$login_admin]['id'])['thoihan'])?></strong>
+    </div>
+<?php } ?>
+
+
 <!-- Header -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light text-sm">
     <!-- Left navbar links -->
@@ -28,7 +34,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item nav-item-hello d-sm-inline-block">
-            <a class="nav-link"><span class="text-split">Xin chào, <?=$_SESSION[$login_admin]['username']?>!</span></a>
+            <a class="nav-link"><span class="text-split">Xin chào, <?= $_SESSION[$login_admin]['username'] ?>!</span></a>
         </li>
     </ul>
 
@@ -40,7 +46,7 @@
             <a id="dropdownSubMenu-info" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 class="nav-link dropdown-toggle"><i style="color: #f087001;" class="fas fa-cogs"></i> Cài đặt</a>
             <ul aria-labelledby="dropdownSubMenu-info" class="dropdown-menu dropdown-menu-right border-0 shadow">
-                <?php if($config['website']['debug-developer'] && count($config['website']['lang']) >= 2) { ?>
+                <?php if ($config['website']['debug-developer'] && count($config['website']['lang']) >= 2) { ?>
                 <li>
                     <a href="index.php?com=lang&act=man" class="dropdown-item">
                         <i class="fas fa-language"></i>
@@ -89,30 +95,30 @@
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i style="color: #f087001;" class="fas fa-bell"></i>
                 <!-- Thông báo -->
-                <span class="badge badge-danger"><?=$countNotify?></span>
+                <span class="badge badge-danger"><?= $countNotify ?></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow">
                 <span class="dropdown-item dropdown-header p-0">Thông báo</span>
                 <div class="dropdown-divider"></div>
                 <a href="index.php?com=contact&act=man&type=contact" class="dropdown-item"><i
                         class="fas fa-envelope mr-2"></i><span
-                        class="badge badge-danger mr-1"><?=count($contactNotify)?></span> Liên hệ</a>
-                <!-- <a href="index.php?com=contact&act=man&type=baogia" class="dropdown-item"><i class="fas fa-envelope mr-2"></i><span class="badge badge-danger mr-1"><?=count($baogiaNotify)?></span> BÁO GIÁ</a> -->
-                <?php if(isset($config['order']['active']) && $config['order']['active']==true) { ?>
-                <div class="dropdown-divider"></div>
-                <a href="index.php?com=order&act=man" class="dropdown-item"><i
-                        class="fas fa-shopping-bag mr-2"></i><span
-                        class="badge badge-danger mr-1"><?=count($orderNotify)?></span> Đơn hàng</a>
+                        class="badge badge-danger mr-1"><?= count($contactNotify) ?></span> Liên hệ</a>
+                <!-- <a href="index.php?com=contact&act=man&type=baogia" class="dropdown-item"><i class="fas fa-envelope mr-2"></i><span class="badge badge-danger mr-1"><?= count($baogiaNotify) ?></span> BÁO GIÁ</a> -->
+                <?php if (isset($config['order']['active']) && $config['order']['active'] == true) { ?>
+                    <div class="dropdown-divider"></div>
+                    <a href="index.php?com=order&act=man" class="dropdown-item"><i
+                            class="fas fa-shopping-bag mr-2"></i><span
+                            class="badge badge-danger mr-1"><?= count($orderNotify) ?></span> Đơn hàng</a>
                 <?php } ?>
-                <?php if(isset($config['newsletter'])) { ?>
-                <div class="dropdown-divider"></div>
-                <?php foreach($config['newsletter'] as $k => $v) { 
-                        $emailNotify = $d->rawQuery("select id from #_newsletter where type = ? and hienthi = 0",array($k)); ?>
-                <a href="index.php?com=newsletter&act=man&type=<?=$k?>" class="dropdown-item"><i
-                        class="fas fa-mail-bulk mr-2"></i></i><span
-                        class="badge badge-danger mr-1"><?=count($emailNotify)?></span> <?=$v['title_main']?></a>
-                <div class="dropdown-divider"></div>
-                <?php } ?>
+                <?php if (isset($config['newsletter'])) { ?>
+                    <div class="dropdown-divider"></div>
+                    <?php foreach ($config['newsletter'] as $k => $v) {
+                        $emailNotify = $d->rawQuery("select id from #_newsletter where type = ? and hienthi = 0", array($k)); ?>
+                        <a href="index.php?com=newsletter&act=man&type=<?= $k ?>" class="dropdown-item"><i
+                                class="fas fa-mail-bulk mr-2"></i></i><span
+                                class="badge badge-danger mr-1"><?= count($emailNotify) ?></span> <?= $v['title_main'] ?></a>
+                        <div class="dropdown-divider"></div>
+                    <?php } ?>
                 <?php } ?>
             </div>
         </li>

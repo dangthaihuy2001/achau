@@ -5,6 +5,7 @@ $linkAdd = "index.php?com=product&act=add&type=" . $type . "&p=" . $curPage;
 $linkCopy = "index.php?com=product&act=copy&type=" . $type . "&p=" . $curPage;
 $linkEdit = "index.php?com=product&act=edit&type=" . $type . "&p=" . $curPage;
 $linkDelete = "index.php?com=product&act=delete&type=" . $type . "&p=" . $curPage;
+$linkDuyet = "index.php?com=product&act=duyet&type=" . $type . "&p=" . $curPage;
 $linkMulti = "index.php?com=product&act=man_photo&kind=man&type=" . $type . "&p=" . $curPage;
 $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product'][$type]['copy_image'] == true) ? TRUE : FALSE;
 ?>
@@ -147,6 +148,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                             </div>
                                         <?php } ?>
                                         <a class="text-danger" id="delete-item" data-url="<?= $linkDelete ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="<?= $items[$i]['tenvi'] ?>"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+                                    
                                     </div>
                                 </td>
                                 <?php if (isset($config['product'][$type]['gallery']) && count($config['product'][$type]['gallery']) > 0) { ?>
@@ -192,6 +194,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                     <?php } ?>
                                     <a class="text-primary mr-2" href="<?= $linkEdit ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
                                     <a class="text-danger" id="delete-item" data-url="<?= $linkDelete ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="Xóa"><i class="fas fa-trash-alt"></i></a>
+                                    <button class="btn btn-success ml-2" id="duyet-item" data-url="<?= $linkDuyet ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="Duyệt đăng">Duyệt đăng</button>
                                 </td>
                             </tr>
                         <?php } ?>
