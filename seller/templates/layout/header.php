@@ -22,6 +22,7 @@ if (isset($config['order']['active'])) {
 <?php if ($func->checkUserSeller_duration($_SESSION[$login_admin]['id'])['check'] == 0) { ?>
     <div class="p-3 mb-2 bg-warning text-dark text-center">
         <strong>Tài khoản sẽ hết hạn vào <?=date("d/m/Y", $func->getAdminCurrent($_SESSION[$login_admin]['id'])['thoihan'])?></strong>
+        <a href="<?=$config_base?>gia-han" class="btn btn-light ml-3" target="_blank">Liên hệ gia hạn</a>
     </div>
 <?php } ?>
 

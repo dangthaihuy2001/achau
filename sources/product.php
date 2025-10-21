@@ -25,7 +25,7 @@ if ($id != '') {
 
 
 	/* Lấy sản phẩm detail */
-	$row_detail = $d->rawQueryOne("select * from #_product where id = ? and type = ? and hienthi > 0 limit 0,1", array($id, $type));
+	$row_detail = $d->rawQueryOne("select p.*, u.ten as nguoidang from #_product p left join #_user u on p.id_nguoiban = u.id where p.id = ? and p.type = ? and p.hienthi > 0 limit 0,1", array($id, $type));
 	$getRating = $d->rawQuery("select id,rating,id_product from #_danhgia where id_product = ? order by id asc", array($id));
 	if (count($getRating)) {
 		$sumRating = array();

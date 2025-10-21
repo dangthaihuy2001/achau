@@ -106,7 +106,7 @@ $requick = array(
 	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "feedback", "type" => "feedback", 'menu' => true),
 	/* Trang tĩnh */
 	array("tbl" => "static", "field" => "id", "source" => "static", "com" => "gioi-thieu", "type" => "gioi-thieu", 'menu' => true),
-
+	array("tbl" => "static", "field" => "id", "source" => "static", "com" => "gia-han", "type" => "gia-han", 'menu' => true),
 	/* Liên hệ */
 	array("tbl" => "", "field" => "id", "source" => "", "com" => "lien-he", "type" => "", 'menu' => true),
 	array("tbl" => "", "field" => "id", "source" => "", "com" => "baogia", "type" => "", 'menu' => true),
@@ -171,6 +171,14 @@ switch ($com) {
 		$type = $com;
 		$seo->setSeo('type', 'article');
 		$title_crumb = 'Giới thiệu';
+		break;
+
+	case 'gia-han':
+		$source = "static";
+		$template = "static/static";
+		$type = $com;
+		$seo->setSeo('type', 'article');
+		$title_crumb = 'Gia hạn';
 		break;
 
 	case 'dang-ky-ban-hang':

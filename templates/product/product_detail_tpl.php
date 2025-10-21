@@ -19,12 +19,10 @@
                         </div>
                 <?php }
                 } ?>
-
                 <div class="description_detail mt-3">
                     <div class="title text-left"><span>Mô tả chi tiết sản phẩm</span></div>
                     <div><?= htmlspecialchars_decode($row_detail['noidung' . $lang]) ?></div>
                 </div>
-
                 <div class="title text-left mx-3"><span>Bạn cần tư vấn</span></div>
                 <form class="validation-contact form_contact_detail" action="" method="post">
                     <div class="row">
@@ -43,7 +41,6 @@
                         <button type="submit" name="submit-newsletter">Gửi thông tin <i class="fas fa-paper-plane"></i></button>
                     </div>
                 </form>
-
             </div>
             <div class="right-pro-detail w-clear">
                 <div class="box_infor_detail">
@@ -70,23 +67,23 @@
                         <li class="w-clear">
                             <label class="attr-label-pro-detail">Địa chỉ:</label>
                             <div class="attr-content-pro-detail">
-                                <span class="attr-content-pro-detail"><?= $func->getTable($row_detail['id_city'], 'city')['ten'] ?></span>
+                                <span class="attr-content-pro-detail"><i class="far fa-map-marker-alt"></i> <?= $func->getTable($row_detail['id_city'], 'city')['ten'] ?></span>
                             </div>
                         </li>
                         <li class="w-clear">
                             <label class="attr-label-pro-detail">Thời gian:</label>
                             <div class="time_sanpham d-inline">
-                                <img src="assets/images/product-user.svg" alt="CÔNG TY CỔ PHẦN TRUYỀN THÔNG &amp;amp; CÔNG NGHỆ SỐ Á CHÂU"> 3 ngày trước
+                            <i class="far fa-clock"></i> 3 ngày trước
                             </div>
                         </li>
                     </ul>
                     <hr>
                     <div class="box_user">
                         <img width="30" src="assets/images/userr.png" alt="">
-                        <div class="title_user">Người đăng </div>
+                        <div class="title_user"><?=$row_detail['nguoidang']?> </div>
                     </div>
                     <hr>
-                    <a href="tel:<?=preg_replace('/[^0-9]/','',$func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai']);?>" class="box_call">
+                    <a href="tel:<?= preg_replace('/[^0-9]/', '', $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai']); ?>" class="box_call">
                         <i class="fas fa-phone-alt"></i> Gọi điện: <span><?= $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai'] ?></span>
                     </a>
                     <hr>
