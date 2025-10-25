@@ -2644,6 +2644,10 @@ img {
     width: calc(100% + 10px);
     transition: .3s;
 }
+.toc_hsnl a.active{
+    font-weight: 600;
+    color: var(--color-main);
+}
 /* Bài viết */
 .news {
     width: 49%;
@@ -3261,8 +3265,33 @@ section .fixwidth {
     border: 1px solid #999;
     color: #333;
     cursor: pointer;
+    position: relative;
 }
-
+.readmore span{
+    position: relative;
+    z-index: 1;
+}
+.readmore a::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 8px;
+    width: 0%;
+    height: 100%;
+    z-index: 0;
+    background: var(--color-main);
+    color: #fff !important;
+    transition: .3s;
+}
+.readmore a:hover::before{
+    width: 100%;
+    transition: .3s;
+}
+.readmore a:hover{
+    color: #fff;
+    border-color: var(--color-main);
+}
 .item_tieuchi {
     display: flex;
     align-items: center;
@@ -3989,6 +4018,7 @@ section .fixwidth {
 .meta-toc{
     position: sticky;
     top: 10px;
+
 }
 .form_register input{
     height: 40px;
@@ -4019,6 +4049,9 @@ section .fixwidth {
 }
 .content-main ul{
     list-style: unset;
+}
+.box_user,.box_call,.box_chat{
+    padding: 7px 0;
 }
 /* Responsive */
 @media(max-width:1199px) {

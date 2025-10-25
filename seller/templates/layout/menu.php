@@ -206,10 +206,8 @@
                                                 </a>
                                             </li>
                                         <?php } ?>
-
                                 <?php }
                                 } ?>
-
                                 <?php if (isset($value['news'])) {
                                     foreach ($value['news'] as $k) {
                                         $disabled['news'][$k] = 1;
@@ -462,8 +460,9 @@
                                     <li class="nav-item <?= $none ?>"><a class="nav-link <?= $active ?>"
                                             href="index.php?com=product&act=man&type=<?= $k ?>" title="<?= $v['title_main'] ?>"><i
                                                 class="nav-icon text-sm far fa-caret-square-right"></i>
-                                            <p><?= $v['title_main'] ?></p>
+                                            <p><?= $v['title_main'] ?> </p>
                                         </a></li>
+                                        
                                     <?php if (isset($v['brand']) && $v['brand'] == true) {
                                         $none = "";
                                         $active = "";
@@ -981,8 +980,7 @@
                             $active = "";
                             if ($act == 'admin_edit' && $func->check_permission_user() == 3) $active = "active";
                             ?>
-                            <li class="nav-item"><a class="nav-link <?= $active ?>" href="index.php?com=user&act=admin_edit"
-                                    title="Thông tin admin"><i class="nav-icon text-sm far fa-caret-square-right"></i>
+                            <li class="nav-item"><a class="nav-link <?= $active ?>" href="index.php?com=user&act=admin_edit&id_city=<?=$func->getAdminCurrent($_SESSION[$login_admin]['id'])['id_city']?>&id_wards=<?=$func->getAdminCurrent($_SESSION[$login_admin]['id'])['id_wards']?>" title="Thông tin admin"><i class="nav-icon text-sm far fa-caret-square-right"></i>
                                     <p>Thông tin admin (Current user)</p>
                                 </a></li>
                             <?php if (isset($config['user']['admin']) && $config['user']['admin'] == true && $func->check_permission_user() == 3) {

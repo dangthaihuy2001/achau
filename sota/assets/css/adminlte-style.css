@@ -2178,3 +2178,35 @@ select.form-control option:disabled {
     }
     100%{background-position: 200px -20px, 200px 20px;}
   } */
+  .toast_header_duyet{
+	position: fixed;
+	opacity: 0;
+	right: -250px;
+	top: 100px;
+	padding: 12px;
+	background: #fff;
+	color: #333;
+	border-top: 5px solid green;
+	z-index: 999999;
+	font-size: 13px;
+	max-width: 300px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	border-radius: 10px;
+}
+.toast_header_duyet.active{
+	animation: anitoast 1s forwards linear;
+}
+@keyframes anitoast {
+	0%{
+		opacity: 0;
+		right: -250px;
+	}
+	60%{
+		opacity: 1;
+		right: 20px;
+	}
+	100%{
+		opacity: 0;
+		right: 20px;
+	}
+}

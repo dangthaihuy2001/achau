@@ -20,6 +20,10 @@
         $countNotify += count($orderNotify);
     }
 ?>
+<div class="toast_header_duyet">
+   Đã duyệt đăng sản phẩm 
+</div>
+
 <!-- Header -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light text-sm">
     <!-- Left navbar links -->

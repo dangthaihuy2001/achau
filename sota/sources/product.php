@@ -323,7 +323,7 @@ function get_items()
 	$items = $d->rawQuery($sql, array($type));
 	$sqlNum = "select count(*) as 'num' from #_product where type = ? $where order by stt,id desc";
 
-
+	
 	$count = $d->rawQueryOne($sqlNum, array($type));
 	$total = $count['num'];
 	$url = "index.php?com=product&act=man" . $strUrl . "&type=" . $type;
@@ -361,6 +361,9 @@ function save_item()
 	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type, $login_admin;
 
 	if (empty($_POST)) $func->transfer("Không nhận được dữ liệu", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
+	if($type == "san-pham-temp"){
+		$func->transfer("Sản phẩm chưa duyệt không được thêm mới hoặc chỉnh sửa", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
+	}
 	/* Post dữ liệu */
 	$data = (isset($_POST['data'])) ? $_POST['data'] : null;
 	$rank =  $_POST['ma_rank'];

@@ -101,15 +101,11 @@ if ($id != '') {
 		$where .= " and a.id_sub = ?";
 		array_push($params, $row_detail['id_sub']);
 	}
-	if (isset($_COOKIE['location'])) {
-		$where .= " and a.id_city = ?";
-		array_push($params, $_COOKIE['location']);
-	}
 
-	if(isset($_COOKIE['location'])){
-		array_push($params, $_COOKIE['location']);
-		$where .= " and a.id_city = ?";
-	} 
+	$filterCity =  $func->addParamsSQLCity($row_detail['id_city'],$params,"a.");
+	$where .= $filterCity[0];
+	$params = $filterCity[1];
+
 
 	$curPage = $get_page;
 	$per_page = 6;
@@ -152,6 +148,7 @@ if ($id != '') {
 	$breadcr->setBreadCrumbs($row_detail[$sluglang]."-".$row_detail['id'], $row_detail['ten' . $lang]);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
 } else if ($idl != '') {
+
 	/* Lấy cấp 1 detail */
 	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdau$lang, type, photo, options,noidung$lang,mota$lang from #_product_list where id = ? and type = ? limit 0,1", array($idl, $type));
 
@@ -184,10 +181,11 @@ if ($id != '') {
 	$where = "a.id_list = ? and a.type = ? and a.hienthi > 0";
 	$params = array($idl, $type);
 
-	if(isset($_COOKIE['location'])){
-		array_push($params, $_COOKIE['location']);
-		$where .= " and a.id_city = ?";
-	} 
+	$filterCity =  $func->addParamsSQLCity($id_city_current,$params,"a.");
+	$where .= $filterCity[0];
+	$params = $filterCity[1];
+	
+	
 
 
 	$curPage = $get_page;

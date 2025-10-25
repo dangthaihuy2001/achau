@@ -77,7 +77,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                             <th class="align-middle">Hình</th>
                         <?php } ?>
                         <th class="align-middle" style="width:30%">Tiêu đề</th>
-                        <?php if (isset($config['product'][$type]['gallery']) && count($config['product'][$type]['gallery']) > 0) { ?>
+                        <?php if (isset($config['product'][$type]['gallery']) && count($config['product'][$type]['gallery']) > 0&&$type!='san-pham-temp') { ?>
                             <th class="align-middle">Gallery</th>
                         <?php } ?>
                         <?php /* if (isset($config['product'][$type]['check'])) {
@@ -149,7 +149,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                         <a class="text-danger" id="delete-item" data-url="<?= $linkDelete ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="<?= $items[$i]['tenvi'] ?>"><i class="far fa-trash-alt mr-1"></i>Delete</a>
                                     </div>
                                 </td>
-                                <?php if (isset($config['product'][$type]['gallery']) && count($config['product'][$type]['gallery']) > 0) { ?>
+                                <?php if (isset($config['product'][$type]['gallery']) && count($config['product'][$type]['gallery']) > 0 && $type != 'san-pham-temp') { ?>
                                     <td class="align-middle">
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-sm bg-gradient-success dropdown-toggle" id="dropdown-gallery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thêm</button>

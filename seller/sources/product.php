@@ -342,7 +342,8 @@ function get_item()
 	} else {
 		$item = $d->rawQueryOne("select * from #_product where id = ? and id_nguoiban = ? and type = ? limit 0,1", array($id, $_SESSION[$login_admin]['id'], $type));
 	}
-
+	
+	
 
 
 	$getRating = $d->rawQuery("select id,rating,id_product from #_danhgia where id_product = ? order by id asc", array($id));
@@ -351,8 +352,10 @@ function get_item()
 
 	/* Lấy hình ảnh con */
 	if ($act != 'copy') {
-		$gallery = $d->rawQuery("select * from #_gallery where id_photo = ? and com = ? and type = ? and kind = ? and val = ? order by stt,id desc", array($id, $com, $type, 'man', $type));
+		$gallery = $d->rawQuery("select * from #_gallery where id_photo = ? and com = ? and type = ? and kind = ? and val = ? order by stt,id desc", array($id, $com, "san-pham", 'man', "san-pham"));
 	}
+	
+	
 }
 
 /* Save man */
@@ -361,6 +364,9 @@ function save_item()
 	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type, $login_admin;
 
 	if (empty($_POST)) $func->transfer("Không nhận được dữ liệu", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
+	if($type == "san-pham-temp"){
+		$func->transfer("Sản phẩm chưa duyệt không được thêm mới hoặc chỉnh sửa", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
+	}
 	/* Post dữ liệu */
 	$data = (isset($_POST['data'])) ? $_POST['data'] : null;
 	$rank =  $_POST['ma_rank'];
@@ -392,7 +398,7 @@ function save_item()
 		$data['giamoi'] = (isset($data['giamoi']) && $data['giamoi'] != '') ? str_replace(",", "", $data['giamoi']) : 0;
 		$data['giakm'] = (isset($data['giakm']) && $data['giakm'] != '') ? $data['giakm'] : 0;
 		//$data['hienthi'] = (isset($data['hienthi'])) ? 1 : 0;
-		$data['hienthi'] = 0;
+		$data['hienthi'] = 1;
 		//$data['type'] = $type;
 		$data['type'] = 'san-pham-temp';
 
@@ -505,16 +511,23 @@ function save_item()
 /* Delete man */
 function delete_item()
 {
-	global $d, $strUrl, $func, $curPage, $com, $type;
+	global $d, $strUrl, $func, $curPage, $com, $type, $login_admin;
 
 	$id = (isset($_GET['id'])) ? htmlspecialchars($_GET['id']) : 0;
 
 	if ($id) {
+
+		/* Lấy dữ liệu */
+		$row = $d->rawQueryOne("select id, photo, id_nguoiban from #_product where id = ? and type = ? limit 0,1", array($id, $type));
+		
+		if($row['id_nguoiban'] != $_SESSION[$login_admin]['id']){
+			$func->transfer("Cảnh báo: Không có quyền thực hiện thao tác này", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
+		}
+
 		/* Xóa SEO */
 		$d->rawQuery("delete from #_seo where idmuc = ? and com = ? and act = ? and type = ?", array($id, $com, 'man', $type));
 
-		/* Lấy dữ liệu */
-		$row = $d->rawQueryOne("select id, photo from #_product where id = ? and type = ? limit 0,1", array($id, $type));
+		
 
 		if ($row['id']) {
 			$func->delete_file(UPLOAD_PRODUCT . $row['photo']);

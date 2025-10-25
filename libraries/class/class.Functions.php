@@ -1683,16 +1683,23 @@ class Functions
 	}
 
 	/* Get tags */
-	public function get_tags($id = 0, $element = '', $table = '', $type = '')
+	public function get_tags($id = 0, $element = '', $table = '', $type = '', $CD = false)
 	{
 		if ($id) {
-			$temps = $this->d->rawQueryOne("select id_tags from #_" . $table . " where id = ? and type = ? limit 0,1", array($id, $type));
+			if($CD == true){
+				$temps = $this->d->rawQueryOne("select id_tags from #_" . $table . " where id = ? and type = ? limit 0,1", array($id, 'san-pham-temp'));
+			}else{
+				$temps = $this->d->rawQueryOne("select id_tags from #_" . $table . " where id = ? and type = ? limit 0,1", array($id, $type));
+			}
+			
+			
 			$arr_tags = explode(',', $temps['id_tags']);
 
 			for ($i = 0; $i < count($arr_tags); $i++) $temp[$i] = $arr_tags[$i];
 		}
-
-		$row_tags = $this->d->rawQuery("select tenvi, id from #_tags where type = ? order by stt,id desc", array($type));
+	
+			$row_tags = $this->d->rawQuery("select tenvi, id from #_tags where type = ? order by stt,id desc", array($type));
+		
 
 		$str = '<select id="' . $element . '" name="' . $element . '[]" class="select multiselect" multiple="multiple" >';
 		for ($i = 0; $i < count($row_tags); $i++) {
@@ -1885,9 +1892,9 @@ class Functions
 			$where .= ' and id_city = ?';
 			array_push($params, $id_city);
 
-			$iddistrict = (isset($_REQUEST['id_district'])) ? htmlspecialchars($_REQUEST['id_district']) : 0;
-			$where .= ' and id_district = ?';
-			array_push($params, $iddistrict);
+			// $iddistrict = (isset($_REQUEST['id_district'])) ? htmlspecialchars($_REQUEST['id_district']) : 0;
+			// $where .= ' and id_district = ?';
+			// array_push($params, $iddistrict);
 		}
 
 		$rows = $this->d->rawQuery("select ten, id from #_" . $table . " where id <> ? " . $where . " order by id asc", $params);
@@ -2097,5 +2104,21 @@ class Functions
 		}
 
 		return $status;
+	}
+	//bổ sung sql lọc danh sách từ thành phố/tỉnh
+	public function addParamsSQLCity($id = 0, $params = array(), $ten = "")
+	{
+		if ($id > 0) {
+			$result = array();
+			$stringID = " and " . $ten . "id_city = ?";
+			array_push($params, $id);
+			$result[0] = $stringID;
+			$result[1] = $params;
+			return $result;
+		}else{
+			$result[0] = "";
+			$result[1] = $params;
+			return $result;
+		}
 	}
 }

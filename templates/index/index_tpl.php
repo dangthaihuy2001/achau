@@ -89,7 +89,8 @@
             <?php } ?>
         </div>
         <div class="readmore text-center">
-            <a class="btn_readmore_p">Xem thêm <i class="fal fa-arrow-right"></i></a>
-        </div>
+            <a class="btn_readmore_p" data-p="2"><span>Xem thêm <i class="fal fa-arrow-right"></i></span></a>
+        </div>       
     </div>
 </section>
+

@@ -87,6 +87,9 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                         <?php }
                         } ?>
                         <th class="align-middle text-center">Hiển thị</th>
+                        <?php if (isset($config['product'][$type]['duyet']) && $config['product'][$type]['duyet'] == true) { ?>
+                            <th class="align-middle text-center">Duyệt đăng</th>
+                            <?php } ?>  
                         <th class="align-middle text-center">Thao tác</th>
                     </tr>
                 </thead>
@@ -148,7 +151,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                             </div>
                                         <?php } ?>
                                         <a class="text-danger" id="delete-item" data-url="<?= $linkDelete ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="<?= $items[$i]['tenvi'] ?>"><i class="far fa-trash-alt mr-1"></i>Delete</a>
-                                    
+
                                     </div>
                                 </td>
                                 <?php if (isset($config['product'][$type]['gallery']) && count($config['product'][$type]['gallery']) > 0) { ?>
@@ -160,7 +163,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                                     <a class="dropdown-item text-dark" href="<?= $linkMulti ?>&idc=<?= $items[$i]['id'] ?>&val=<?= $key ?>" title="<?= $value['title_sub_photo'] ?>"><i class="far fa-caret-square-right text-secondary mr-2"></i><?= $value['title_sub_photo'] ?></a>
                                                 <?php } ?>
                                                 <?php if ($_SESSION[$login_admin]['role'] == 2 || $_SESSION[$login_admin]['role'] == 3) { ?>
-                                                    <a href="index.php?com=user&act=edit_admin<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['role']==1?'_seller':''?>&p=1&id=<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['id']?>&id_city=<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['id_city']?>&id_wards=<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['id_wards']?>" class="dropdown-item text-dark btn_view_user" title=""><i class="far fa-caret-square-right text-secondary mr-2"></i><?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['ten']?> - Đã đăng</a>
+                                                    <a href="index.php?com=user&act=edit_admin<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['role'] == 1 ? '_seller' : '' ?>&p=1&id=<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['id'] ?>&id_city=<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['id_city'] ?>&id_wards=<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['id_wards'] ?>" class="dropdown-item text-dark btn_view_user" title=""><i class="far fa-caret-square-right text-secondary mr-2"></i><?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['ten'] ?> - Đã đăng</a>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -177,11 +180,19 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                 <?php }
                                 } ?>
                                 <td class="align-middle text-center">
-                                    <div class="custom-control custom-checkbox my-checkbox">
-                                        <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-<?= $items[$i]['id'] ?>" data-table="product" data-id="<?= $items[$i]['id'] ?>" data-loai="hienthi" <?= ($items[$i]['hienthi']) ? 'checked' : '' ?>>
-                                        <label for="show-checkbox-<?= $items[$i]['id'] ?>" class="custom-control-label"></label>
-                                    </div>
-                                </td>
+                                        <div class="custom-control custom-checkbox my-checkbox">
+                                            <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-<?= $items[$i]['id'] ?>" data-table="product" data-id="<?= $items[$i]['id'] ?>" data-loai="hienthi" <?= ($items[$i]['hienthi']) ? 'checked' : '' ?>>
+                                            <label for="show-checkbox-<?= $items[$i]['id'] ?>" class="custom-control-label"></label>
+                                        </div>
+                                    </td>
+                                <?php if (isset($config['product'][$type]['duyet']) && $config['product'][$type]['duyet'] == true) { ?>
+                                    <td class="align-middle text-center">
+                                        <div class="custom-control custom-checkbox my-checkbox">
+                                            <input type="checkbox" class="custom-control-input show-checkbox-duyet" id="show-checkbox-<?= $items[$i]['id'] ?>" data-table="product" data-id="<?= $items[$i]['id'] ?>" data-loai="duyet" <?= ($items[$i]['duyet']) ? 'checked' : '' ?>>
+                                            <label for="show-checkbox-<?= $items[$i]['id'] ?>" class="custom-control-label"></label>
+                                        </div>
+                                    </td>
+                                <?php } ?>
                                 <td class="align-middle text-center text-md text-nowrap">
                                     <?php if (isset($config['product'][$type]['copy']) && $config['product'][$type]['copy'] == true) { ?>
                                         <div class="dropdown d-inline-block align-middle">
@@ -194,7 +205,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                     <?php } ?>
                                     <a class="text-primary mr-2" href="<?= $linkEdit ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
                                     <a class="text-danger" id="delete-item" data-url="<?= $linkDelete ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="Xóa"><i class="fas fa-trash-alt"></i></a>
-                                    <button class="btn btn-success ml-2" id="duyet-item" data-url="<?= $linkDuyet ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="Duyệt đăng">Duyệt đăng</button>
+                                    <!-- <button class="btn btn-success ml-2" id="duyet-item" data-url="<?= $linkDuyet ?><?= $linkID ?>&id=<?= $items[$i]['id'] ?>" title="Duyệt đăng">Duyệt đăng</button> -->
                                 </td>
                             </tr>
                         <?php } ?>

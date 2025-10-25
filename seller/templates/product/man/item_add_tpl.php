@@ -127,7 +127,7 @@ if ((isset($config['product'][$type]['dropdown']) && $config['product'][$type]['
 
 <!-- Main content -->
 <section class="content">
-	<form class="validation-form" novalidate method="post" action="<?= $linkSave ?>" enctype="multipart/form-data">
+	<form class="validation-form" id="<?=$type=='san-pham-temp'?'readonly_form':''?>" novalidate method="post" action="<?= $linkSave ?>" enctype="multipart/form-data">
 		<div class="card-footer text-sm sticky-top">
 			<button type="submit" class="btn btn-sm bg-gradient-primary submit-check"><i class="far fa-save mr-2"></i>Lưu</button>
 			<button type="submit" class="btn btn-sm bg-gradient-success submit-check" name="save-here"><i class="far fa-save mr-2"></i>Lưu tại trang</button>
@@ -258,7 +258,8 @@ if ((isset($config['product'][$type]['dropdown']) && $config['product'][$type]['
 							</div>
 						</div>
 						<div class="card-body">
-							<?php //if() ?>
+							<?php //if() 
+							?>
 						</div>
 					</div>
 					<?php if (
@@ -282,7 +283,7 @@ if ((isset($config['product'][$type]['dropdown']) && $config['product'][$type]['
 										<?php if (isset($config['product'][$type]['list']) && $config['product'][$type]['list'] == true) { ?>
 											<div class="form-group col-xl-6 col-sm-6">
 												<label class="d-block" for="id_list">Danh mục cấp 1:</label>
-												<?= $func->get_ajax_category('product', 'list', $type) ?>
+												<?= $func->get_ajax_category('product', 'list', "san-pham") ?>
 											</div>
 										<?php } ?>
 										<?php if (isset($config['product'][$type]['cat']) && $config['product'][$type]['cat'] == true) { ?>
@@ -344,7 +345,7 @@ if ((isset($config['product'][$type]['dropdown']) && $config['product'][$type]['
 									<?php if (isset($config['product'][$type]['tags']) && $config['product'][$type]['tags'] == true) { ?>
 										<div class="form-group col-xl-6 col-sm-6">
 											<label class="d-block" for="id_tags">Danh mục tags:</label>
-											<?= $func->get_tags(@$item['id'], 'tags_group', 'product', $type) ?>
+											<?= $func->get_tags(@$item['id'], 'tags_group', 'product', "san-pham", true) ?>
 										</div>
 									<?php } ?>
 								</div>
@@ -556,3 +557,11 @@ if ((isset($config['product'][$type]['dropdown']) && $config['product'][$type]['
 		})
 	</script>
 <?php } ?>
+
+<script>
+	const form = document.getElementById("readonly_form");
+	form.querySelectorAll("input, textarea, select").forEach(el => {
+		el.readOnly = true; // input, textarea
+		el.disabled = el.tagName === "SELECT"; // select không có readonly, nên dùng disabled
+	});
+</script>

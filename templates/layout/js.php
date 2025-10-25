@@ -75,16 +75,17 @@ echo $js->getJs();
 
 <script>
     $('.btn_readmore_p').click(function() {
+        var countP = $('.btn_readmore_p').data('p');
         $.ajax({
             type: "POST",
             url: 'ajax/ajax_load_p.php',
-            dataType: 'json',
+            dataType: 'html',
             data: {
-                cmd: 'delete-cart',
-                code: 1,
-                ship: 1
+                p: countP,   
             },
             success: function(result) {
+                $('.items_sanpham').append(result)
+                $('.btn_readmore_p').data('p',parseInt($('.btn_readmore_p').data('p'))+1)
                 
             }
         });

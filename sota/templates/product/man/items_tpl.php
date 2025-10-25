@@ -42,7 +42,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
     ) { ?>
         <div class="card-footer form-group-category text-sm bg-light row">
             <?php if (isset($config['product'][$type]['list']) && $config['product'][$type]['list'] == true) { ?>
-             
+
                 <div class="form-group col-xl-2 col-lg-3 col-md-4 col-sm-4 mb-2"><?= $func->get_link_category('product', 'list', $type) ?></div>
             <?php } ?>
             <?php if (isset($config['product'][$type]['cat']) && $config['product'][$type]['cat'] == true) { ?>
@@ -59,10 +59,10 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
             <?php } ?>
             <?php if (true) { ?>
                 <div class="form-group col-xl-2 col-lg-3 col-md-4 col-sm-4 mb-2">
-                        <?=$func->get_link_place('city', 'Chọn tỉnh/TP')?>
+                    <?= $func->get_link_place('city', 'Chọn tỉnh/TP') ?>
                 </div>
                 <div class="form-group col-xl-2 col-lg-3 col-md-4 col-sm-4 mb-2">
-                        <?=$func->get_link_place('wards', 'Chọn xã/phường')?>
+                    <?= $func->get_link_place('wards', 'Chọn xã/phường') ?>
                 </div>
             <?php } ?>
         </div>
@@ -95,6 +95,9 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                         <?php }
                         } ?>
                         <th class="align-middle text-center">Hiển thị</th>
+                        <?php if (isset($config['product'][$type]['duyet']) && $config['product'][$type]['duyet'] == true) { ?>
+                            <th class="align-middle text-center">Duyệt đăng</th>
+                        <?php } ?>
                         <th class="align-middle text-center">Thao tác</th>
                     </tr>
                 </thead>
@@ -167,7 +170,7 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                                     <a class="dropdown-item text-dark" href="<?= $linkMulti ?>&idc=<?= $items[$i]['id'] ?>&val=<?= $key ?>" title="<?= $value['title_sub_photo'] ?>"><i class="far fa-caret-square-right text-secondary mr-2"></i><?= $value['title_sub_photo'] ?></a>
                                                 <?php } ?>
                                                 <?php if ($_SESSION[$login_admin]['role'] == 2 || $_SESSION[$login_admin]['role'] == 3) { ?>
-                                                    <a href="index.php?com=user&act=edit_admin<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['role']==1?'_seller':''?>&p=1&id=<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['id']?>&id_city=<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['id_city']?>&id_wards=<?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['id_wards']?>" class="dropdown-item text-dark btn_view_user" title=""><i class="far fa-caret-square-right text-secondary mr-2"></i><?=$func->getAdminCurrent($items[$i]['id_nguoiban'])['ten']?> - Đã đăng</a>
+                                                    <a href="index.php?com=user&act=edit_admin<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['role'] == 1 ? '_seller' : '' ?>&p=1&id=<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['id'] ?>&id_city=<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['id_city'] ?>&id_wards=<?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['id_wards'] ?>" class="dropdown-item text-dark btn_view_user" title=""><i class="far fa-caret-square-right text-secondary mr-2"></i><?= $func->getAdminCurrent($items[$i]['id_nguoiban'])['ten'] ?> - Đã đăng</a>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -189,6 +192,14 @@ $copyImg = (isset($config['product'][$type]['copy_image']) && $config['product']
                                         <label for="show-checkbox-<?= $items[$i]['id'] ?>" class="custom-control-label"></label>
                                     </div>
                                 </td>
+                                <?php if (isset($config['product'][$type]['duyet']) && $config['product'][$type]['duyet'] == true) { ?>
+                                    <td class="align-middle text-center">
+                                        <div class="custom-control custom-checkbox my-checkbox">
+                                            <input type="checkbox" class="custom-control-input show-checkbox-duyet" id="show-checkbox-<?= $items[$i]['id'] ?>" data-table="product" data-id="<?= $items[$i]['id'] ?>" data-loai="duyet" <?= ($items[$i]['duyet']) ? 'checked' : '' ?>>
+                                            <label for="show-checkbox-<?= $items[$i]['id'] ?>" class="custom-control-label"></label>
+                                        </div>
+                                    </td>
+                                <?php } ?>
                                 <td class="align-middle text-center text-md text-nowrap">
                                     <?php if (isset($config['product'][$type]['copy']) && $config['product'][$type]['copy'] == true) { ?>
                                         <div class="dropdown d-inline-block align-middle">

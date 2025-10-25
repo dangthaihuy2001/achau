@@ -8,6 +8,10 @@ $func->checkUrl($config['website']['index']);
 /* Check login */
 $func->checkLogin();
 
+//kiểm tra id city và viết sql           
+$id_city_current = $func->getIdCityCurrent();
+
+
 /* Mobile detect */
 $deviceType = ($detect->isMobile() || $detect->isTablet()) ? 'mobile' : 'computer';
 if ($deviceType == 'computer') define('TEMPLATE', './templates/');
@@ -93,23 +97,19 @@ $requick = array(
 	array("tbl" => "product_item", "field" => "idi", "source" => "product", "com" => "san-pham", "type" => "san-pham", 'menu' => true),
 	array("tbl" => "product", "field" => "id", "source" => "product", "com" => "san-pham", "type" => "san-pham", 'menu' => true),
 
+	array("tbl" => "tags", "field" => "id", "source" => "tags", "com" => "tags-san-pham", "type" => "san-pham", 'menu' => true),
+
 	/* Bài viết */
 	array("tbl" => "video", "field" => "id", "source" => "news", "com" => "video", "type" => "video", 'menu' => false),
-	array("tbl" => "news_list", "field" => "idl", "source" => "news", "com" => "tin-tuc", "type" => "tin-tuc", 'menu' => true),
-	array("tbl" => "news_list", "field" => "idl", "source" => "news", "com" => "dich-vu", "type" => "dich-vu", 'menu' => true),
-	array("tbl" => "news_list", "field" => "idl", "source" => "news", "com" => "phu-kien", "type" => "phu-kien", 'menu' => true),
 	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "tin-tuc", "type" => "tin-tuc", 'menu' => true),
 	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "thong-bao", "type" => "thong-bao", 'menu' => true),
-	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "bang-gia", "type" => "bang-gia", 'menu' => true),
-	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "khuyen-mai", "type" => "khuyen-mai", 'menu' => true),
-	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "phu-kien", "type" => "phu-kien", 'menu' => true),
-	array("tbl" => "news", "field" => "id", "source" => "news", "com" => "feedback", "type" => "feedback", 'menu' => true),
+
 	/* Trang tĩnh */
 	array("tbl" => "static", "field" => "id", "source" => "static", "com" => "gioi-thieu", "type" => "gioi-thieu", 'menu' => true),
 	array("tbl" => "static", "field" => "id", "source" => "static", "com" => "gia-han", "type" => "gia-han", 'menu' => true),
 	/* Liên hệ */
 	array("tbl" => "", "field" => "id", "source" => "", "com" => "lien-he", "type" => "", 'menu' => true),
-	array("tbl" => "", "field" => "id", "source" => "", "com" => "baogia", "type" => "", 'menu' => true),
+	//array("tbl" => "", "field" => "id", "source" => "", "com" => "baogia", "type" => "", 'menu' => true),
 
 	array("tbl" => "city", "field" => "id", "source" => "city", "com" => "tinh-thanh", "type" => "tinh-thanh", 'menu' => false),
 
@@ -132,10 +132,12 @@ if ($com != 'tim-kiem' && $com != 'account' && $com != 'sitemap') {
 				if ($url_source == 'product' && $url_tbl == 'product') {
 					$row = $d->rawQueryOne("select id from #_$url_tbl where $sluglang = ? and id = ? and type = ? and hienthi > 0 limit 0,1", array($product, $idP, $url_type));
 				} else {
-					$row = $d->rawQueryOne("select id from #_$url_tbl where $sluglang = ? and type = ? and hienthi > 0 limit 0,1", array($com, $url_type));
+				
+					$row = $d->rawQueryOne("select id,tenvi from #_$url_tbl where $sluglang = ? and type = ? and hienthi > 0 limit 0,1", array($com, $url_type));
 				}
 			}
 			if ($row['id']) {
+				
 				$_GET[$url_field] = $row['id'];
 				$com = $url_com;
 				break;
@@ -205,38 +207,6 @@ switch ($com) {
 		$title_crumb = "Tin tức";
 		break;
 
-	case 'khuyen-mai':
-		$source = "news";
-		$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
-		$seo->setSeo('type', isset($_GET['id']) ? "article" : "object");
-		$type = $com;
-		$title_crumb = "Khuyến mãi";
-		break;
-
-	case 'bang-gia':
-		$source = "news";
-		$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
-		$seo->setSeo('type', isset($_GET['id']) ? "article" : "object");
-		$type = $com;
-		$title_crumb = "Bảng giá";
-		break;
-
-	case 'feedback':
-		$source = "news";
-		$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
-		$seo->setSeo('type', isset($_GET['id']) ? "article" : "object");
-		$type = $com;
-		$title_crumb = "Khách Hàng";
-		break;
-
-	case 'dich-vu':
-		$source = "news";
-		$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
-		$seo->setSeo('type', isset($_GET['id']) ? "article" : "object");
-		$type = $com;
-		$title_crumb = "Dịch vụ";
-		break;
-
 	case 'video':
 		$source = "video";
 		$template =  "video/video";
@@ -260,16 +230,16 @@ switch ($com) {
 		$title_crumb = timkiem;
 		break;
 
-	/*case 'tags-san-pham':
-			$source = "tags";
-			$template = "product/product";
-			$type = $url_type;
-			$table = $url_tbltag;
-			$seo->setSeo('type','object');
-			$title_crumb = null;
-			break;
+	case 'tags-san-pham':
+		$source = "tags";
+		$template = "product/product";
+		$type = $url_type;
+		$table = $url_tbltag;
+		$seo->setSeo('type', 'object');
+		$title_crumb = null;
+		break;
 
-		case 'tags-tin-tuc':
+	/*case 'tags-tin-tuc':
 			$source = "tags";
 			$template = "news/news";
 			$type = $url_type;
@@ -278,12 +248,12 @@ switch ($com) {
 			$title_crumb = null;
 			break;*/
 
-	case 'gio-hang':
-		$source = "order";
-		$template = 'order/order';
-		$title_crumb = giohang;
-		$seo->setSeo('type', 'object');
-		break;
+	// case 'gio-hang':
+	// 	$source = "order";
+	// 	$template = 'order/order';
+	// 	$title_crumb = giohang;
+	// 	$seo->setSeo('type', 'object');
+	// 	break;
 
 	case 'account':
 		$source = "user";

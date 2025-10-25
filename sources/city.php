@@ -15,6 +15,7 @@ if ($id != '') {
     $breadcr->setBreadCrumbs($row_detail['tenkhongdau'], $row_detail['ten']);
     $breadcrumbs = $breadcr->getBreadCrumbs();
 }else{
+    
     $tinhthanh = $d->rawQuery("select * from #_city where id = ? and hienthi > 0 ");
 
 	$seo->setSeo('title', $title_crumb);

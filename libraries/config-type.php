@@ -22,6 +22,9 @@
             // "photo_static" => array("background-tieuchi"),
             //"tags" => array("tin-tuc"),
             //"newsletter" => array("dangkytuyendung")
+        ),
+        "Quản lý thống kê" => array(
+           
         )
     );
 

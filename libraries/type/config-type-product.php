@@ -14,7 +14,7 @@
     $config['product'][$nametype]['size'] = false;
     $config['product'][$nametype]['danhgia'] = false; 
     $config['product'][$nametype]['doday'] = false;
-    $config['product'][$nametype]['tags'] = false;
+    $config['product'][$nametype]['tags'] = true;
     $config['product'][$nametype]['import'] = false;
     $config['product'][$nametype]['export'] = false;
     $config['product'][$nametype]['view'] = false;
@@ -290,9 +290,9 @@
 
 
     $nametype = "san-pham-temp";
-    $config['product'][$nametype]['title_main'] = "Sản phẩm (duyệt)";
+    $config['product'][$nametype]['title_main'] = "Sản phẩm (chưa duyệt)";
     $config['product'][$nametype]['dropdown'] = true;
-    $config['product'][$nametype]['list'] = false;
+    $config['product'][$nametype]['list'] = true;
     $config['product'][$nametype]['qr'] = true;
     $config['product'][$nametype]['duyet'] = true;
     $config['product'][$nametype]['cat'] = false;
@@ -303,7 +303,7 @@
     $config['product'][$nametype]['size'] = false;
     $config['product'][$nametype]['danhgia'] = false; 
     $config['product'][$nametype]['doday'] = false;
-    $config['product'][$nametype]['tags'] = false;
+    $config['product'][$nametype]['tags'] = true;
     $config['product'][$nametype]['import'] = false;
     $config['product'][$nametype]['export'] = false;
     $config['product'][$nametype]['view'] = false;

@@ -1128,6 +1128,41 @@
 			return false;
 		})
 
+		$('body').on('click', '.show-checkbox-duyet', function() {
+			var id = $(this).attr('data-id');
+			var table = $(this).attr('data-table');
+			var loai = $(this).attr('data-loai');
+			var $this = $(this);
+			
+			$.ajax({
+				url: 'ajax/ajax_duyet.php',
+				type: 'POST',
+				dataType: 'html',
+				data: {
+					id: id,
+					table: table,
+					loai: loai
+				},
+				success: function(result) {
+					console.log(result)
+					if ($this.is(':checked')) {
+						$this.prop('checked', false);
+					} else {
+						$this.prop('checked', true);
+					}
+
+					if (result == 1) {
+						$('.toast_header_duyet').addClass('active')
+						setTimeout(() => {
+							$('.toast_header_duyet').removeClass("active");
+						}, 1000);
+					}
+				}
+			});
+
+			return false;
+		})
+
 		/* Change stt */
 		$('body').on("change", "input.update-stt", function() {
 			var id = $(this).attr('data-id');
