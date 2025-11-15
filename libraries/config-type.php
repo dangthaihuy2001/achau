@@ -99,12 +99,12 @@
     $config['places']['placesship'] = true;
 
     /* Quản lý giỏ hàng */
-    $config['order']['active'] = true;
-    $config['order']['search'] = true;
-    $config['order']['excel'] = true;
-    $config['order']['word'] = true;
-    $config['order']['excelall'] = true;
-    $config['order']['wordall'] = true;
+    $config['order']['active'] = false;
+    $config['order']['search'] = false;
+    $config['order']['excel'] = false;
+    $config['order']['word'] = false;
+    $config['order']['excelall'] = false;
+    $config['order']['wordall'] = false;
     $config['order']['thumb'] = '100x100x1';
 
     /* Quản lý thông báo đẩy */

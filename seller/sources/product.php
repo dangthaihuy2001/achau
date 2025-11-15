@@ -27,12 +27,28 @@ if (isset($_POST['data'])) {
 	if (isset($_REQUEST['keyword'])) $strUrl .= "&keyword=" . htmlspecialchars($_REQUEST['keyword']);
 }
 
+
 switch ($act) {
 	/* Man */
 	case "man":
 		get_items();
 		$template = "product/man/items";
 		break;
+
+	case "aff":
+		get_items_aff();
+		$template = "product/aff/items";
+		break;
+	case "add_aff":
+		$template = "product/aff/item_add";
+		break;
+	case "save_aff":
+		save_item_aff();
+		break;
+	case "delete_aff":
+		delete_item_aff();
+		break;
+	
 	case "add":
 		$template = "product/man/item_add";
 		break;
@@ -274,14 +290,6 @@ function get_items()
 {
 	global $d, $func, $strUrl, $curPage, $items, $paging, $type, $login_admin;
 
-
-	/*$gallery = $d->rawQuery("select * from #_gallery where type ='san-pham' and kind = 'man' and val ='san-pham' order by stt,id desc");
-		foreach($gallery as $k => $v){
-			$data['com']='product';
-			$d->where('id', $v['id']);
-			$d->update('gallery',$data);
-		}*/
-
 	$where = "";
 	$idlist = (isset($_REQUEST['id_list'])) ? htmlspecialchars($_REQUEST['id_list']) : 0;
 	$idcat = (isset($_REQUEST['id_cat'])) ? htmlspecialchars($_REQUEST['id_cat']) : 0;
@@ -326,6 +334,46 @@ function get_items()
 	$paging = $func->pagination($total, $per_page, $curPage, $url);
 }
 
+/* Get man */
+function get_items_aff()
+{
+	global $d, $func, $strUrl, $curPage, $items, $paging, $type, $login_admin;
+	
+	$where = "";
+	$idlist = (isset($_REQUEST['id_list'])) ? htmlspecialchars($_REQUEST['id_list']) : 0;
+	//check user
+	if ($_SESSION[$login_admin]['id'] != 116) {
+		//admin tỉnh
+		if ($_SESSION[$login_admin]['role'] == 2) {
+			$userCurrent = $d->rawQueryOne("select id,id_city, id_wards from #_user where id = ? and role = 2 limit 1", array($_SESSION[$login_admin]['id']));
+			$where .= " and p.id_city=" . $userCurrent['id_city'];
+		} elseif ($_SESSION[$login_admin]['role'] == 1) { //admin người bán
+			$userCurrent = $d->rawQueryOne("select id,id_city, id_wards from #_user where id = ? and role = 1 limit 1", array($_SESSION[$login_admin]['id']));
+			$where .= " and a.user_id=" . $userCurrent['id'];
+			//$where .= " and p.id_city=" . $userCurrent['id_city'];
+		}
+	}
+
+	if ($idlist) $where .= " and p.id_list=$idlist";
+	if (isset($_REQUEST['keyword'])) {
+		$keyword = htmlspecialchars($_REQUEST['keyword']);
+		$where .= " and (p.tenvi LIKE '%$keyword%' or p.tenen LIKE '%$keyword%')";
+	}
+
+	$per_page = 20;
+	$startpoint = ($curPage * $per_page) - $per_page;
+	$limit = " limit " . $startpoint . "," . $per_page;
+	$sql = "select p.*, a.id as id_aff, a.stt as stt_aff from #_affiliates a inner join #_product p on a.product_id  = p.id where p.type = ? $where order by p.stt,p.id desc $limit";
+	$items = $d->rawQuery($sql, array($type));
+	$sqlNum = "select count(p.*) as 'num' from #_affiliates a left join #_product p on a.user_id  = p.id_nguoiban where p.type = ? $where order by p.stt,p.id desc";
+		
+	$count = $d->rawQueryOne($sqlNum, array($type));
+	$total = $count['num'];
+	$url = "index.php?com=product&act=man" . $strUrl . "&type=" . $type;
+	$paging = $func->pagination($total, $per_page, $curPage, $url);
+}
+
+
 /* Edit man */
 function get_item()
 {
@@ -342,8 +390,8 @@ function get_item()
 	} else {
 		$item = $d->rawQueryOne("select * from #_product where id = ? and id_nguoiban = ? and type = ? limit 0,1", array($id, $_SESSION[$login_admin]['id'], $type));
 	}
-	
-	
+
+
 
 
 	$getRating = $d->rawQuery("select id,rating,id_product from #_danhgia where id_product = ? order by id asc", array($id));
@@ -354,8 +402,6 @@ function get_item()
 	if ($act != 'copy') {
 		$gallery = $d->rawQuery("select * from #_gallery where id_photo = ? and com = ? and type = ? and kind = ? and val = ? order by stt,id desc", array($id, $com, "san-pham", 'man', "san-pham"));
 	}
-	
-	
 }
 
 /* Save man */
@@ -364,7 +410,7 @@ function save_item()
 	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type, $login_admin;
 
 	if (empty($_POST)) $func->transfer("Không nhận được dữ liệu", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
-	if($type == "san-pham-temp"){
+	if ($type == "san-pham-temp") {
 		$func->transfer("Sản phẩm chưa duyệt không được thêm mới hoặc chỉnh sửa", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
 	}
 	/* Post dữ liệu */
@@ -508,6 +554,42 @@ function save_item()
 	}
 }
 
+/* Save man */
+function save_item_aff()
+{
+	global $d, $strUrl, $func, $curPage, $config, $com, $act, $type, $login_admin;
+
+	if (empty($_POST)) $func->transfer("Không nhận được dữ liệu", "index.php?com=product&act=aff&type=" . $type . $strUrl, false);
+	/* Post dữ liệu */
+	$data = (isset($_POST['data'])) ? $_POST['data'] : null;
+	if ($data) {
+		foreach ($data as $column => $value) {
+			$data[$column] = htmlspecialchars($value);
+		}
+	}
+	$id = (isset($_POST['id'])) ? htmlspecialchars($_POST['id']) : 0;
+	if ($id && $act != 'save_copy') {
+		$data['ngaysua'] = time();
+		$data['stt'] = 1;
+		$data['user_id'] = $_SESSION[$login_admin]['id'];
+		$d->where('id', $id);
+		if ($d->update('affiliates', $data)) {
+			$func->redirect("index.php?com=product&act=aff&type=" . $type . $strUrl);
+		} else {
+			$func->transfer("Cập nhật dữ liệu bị lỗi", "index.php?com=product&act=aff&type=" . $type . $strUrl, false);
+		}
+	} else {
+		$data['stt'] = 1;
+		$data['ngaytao'] = time();
+		$data['user_id'] = $_SESSION[$login_admin]['id'];
+		
+		if ($d->insert('affiliates', $data)) {
+			$func->redirect("index.php?com=product&act=aff&type=" . $type . $strUrl);
+		} else {
+			$func->transfer("Lưu dữ liệu bị lỗi", "index.php?com=product&act=aff&type=" . $type . $strUrl, false);
+		}
+	}
+}
 /* Delete man */
 function delete_item()
 {
@@ -519,15 +601,15 @@ function delete_item()
 
 		/* Lấy dữ liệu */
 		$row = $d->rawQueryOne("select id, photo, id_nguoiban from #_product where id = ? and type = ? limit 0,1", array($id, $type));
-		
-		if($row['id_nguoiban'] != $_SESSION[$login_admin]['id']){
+
+		if ($row['id_nguoiban'] != $_SESSION[$login_admin]['id']) {
 			$func->transfer("Cảnh báo: Không có quyền thực hiện thao tác này", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
 		}
 
 		/* Xóa SEO */
 		$d->rawQuery("delete from #_seo where idmuc = ? and com = ? and act = ? and type = ?", array($id, $com, 'man', $type));
 
-		
+
 
 		if ($row['id']) {
 			$func->delete_file(UPLOAD_PRODUCT . $row['photo']);
@@ -557,8 +639,10 @@ function delete_item()
 			$d->rawQuery("delete from #_seo where idmuc = ? and com = ? and act = ? and type = ?", array($id, $com, 'man', $type));
 
 			/* Lấy dữ liệu */
-			$row = $d->rawQueryOne("select id, photo from #_product where id = ? and type = ? limit 0,1", array($id, $type));
-
+			$row = $d->rawQueryOne("select id, photo,id_nguoiban from #_product where id = ? and type = ? limit 0,1", array($id, $type));
+			if ($row['id_nguoiban'] != $_SESSION[$login_admin]['id']) {
+				$func->transfer("Cảnh báo: Không có quyền thực hiện thao tác này", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
+			}
 			if ($row['id']) {
 				$func->delete_file(UPLOAD_PRODUCT . $row['photo']);
 				$d->rawQuery("delete from #_product where id = ?", array($id));
@@ -579,6 +663,40 @@ function delete_item()
 
 		$func->redirect("index.php?com=product&act=man&type=" . $type . $strUrl);
 	} else $func->transfer("Không nhận được dữ liệu", "index.php?com=product&act=man&type=" . $type . $strUrl, false);
+}
+
+/* Delete man */
+function delete_item_aff()
+{
+	global $d, $strUrl, $func, $curPage, $com, $type, $login_admin;
+	$id = (isset($_GET['id'])) ? htmlspecialchars($_GET['id']) : 0;
+	if ($id) {
+		/* Lấy dữ liệu */
+		$row = $d->rawQueryOne("select id, user_id from #_affiliates where id = ? limit 0,1", array($id));
+		
+		if ($row['user_id'] != $_SESSION[$login_admin]['id']) {
+			$func->transfer("Cảnh báo: Không có quyền thực hiện thao tác này", "index.php?com=product&act=aff&type=" . $type . $strUrl, false);
+		}
+		if ($row['id']) {
+			$d->rawQuery("delete from #_affiliates where id = ?", array($id));
+			$func->redirect("index.php?com=product&act=aff&type=" . $type . $strUrl);
+		} else $func->transfer("Xóa dữ liệu bị lỗi", "index.php?com=product&act=aff&type=" . $type . $strUrl, false);
+	} elseif (isset($_GET['listid'])) {
+		$listid = explode(",", $_GET['listid']);
+		for ($i = 0; $i < count($listid); $i++) {
+			$id = htmlspecialchars($listid[$i]);
+			/* Lấy dữ liệu */
+			$row = $d->rawQueryOne("select id,user_id from #_affiliates where id = ? limit 0,1", array($id));
+			if ($row['user_id'] != $_SESSION[$login_admin]['id']) {
+				$func->transfer("Cảnh báo: Không có quyền thực hiện thao tác này", "index.php?com=product&act=aff&type=" . $type . $strUrl, false);
+			}
+			if ($row['id']) {
+				$d->rawQuery("delete from #_affiliates where id = ?", array($id));
+			}
+		}
+
+		$func->redirect("index.php?com=product&act=aff&type=" . $type . $strUrl);
+	} else $func->transfer("Không nhận được dữ liệu", "index.php?com=product&act=aff&type=" . $type . $strUrl, false);
 }
 
 /* Get size */

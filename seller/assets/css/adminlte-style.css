@@ -1630,19 +1630,24 @@ select.form-control option:disabled {
 		height: 300px;
 	}
 }
+
 @media(max-width:769px) {
-	.main-header .nav-link{
+	.main-header .nav-link {
 		height: unset !important;
 	}
-	.tuyet, .circle_admin{
+
+	.tuyet,
+	.circle_admin {
 		display: none !important;
 	}
-	.box-account-admin p{
+
+	.box-account-admin p {
 		flex-direction: column;
 	}
 }
+
 @media(max-width:641px) {
-	
+
 	.main-header .navbar-nav .nav-item .nav-link {
 		padding: 0.35rem 0.55rem !important;
 	}
@@ -1871,120 +1876,162 @@ select.form-control option:disabled {
 	border-radius: 50%;
 
 	z-index: 99;
-	
+
 	top: 0%;
 	left: 10%;
 	animation: circleadmin1 2s infinite ease-in-out;
 }
 
 
-.circle_admin:nth-child(21),.circle_admin:nth-child(41) {	
+.circle_admin:nth-child(21),
+.circle_admin:nth-child(41) {
 	background: linear-gradient(317deg, rgba(29, 98, 240, 0.7595413165266106) 0%, rgba(7, 238, 240, 1) 19%, rgba(29, 98, 240, 1) 50%, rgba(29, 98, 240, 1) 71%, rgba(29, 81, 187, 1) 100%);
 	animation: circleadmin1 2s infinite ease-in-out;
 	top: 0%;
 }
-.circle_admin:nth-child(22),.circle_admin:nth-child(42) {
+
+.circle_admin:nth-child(22),
+.circle_admin:nth-child(42) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(240, 65, 7, 1) 34%);
 	animation: circleadmin1 2s .2s infinite ease-in-out;
 	top: 5%;
 }
-.circle_admin:nth-child(23),.circle_admin:nth-child(43) {
+
+.circle_admin:nth-child(23),
+.circle_admin:nth-child(43) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(194, 7, 240, 1) 34%);
 	animation: circleadmin1 2s .4s infinite ease-in-out;
 	top: 10%;
 }
-.circle_admin:nth-child(24),.circle_admin:nth-child(44) {
+
+.circle_admin:nth-child(24),
+.circle_admin:nth-child(44) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(235, 240, 7, 1) 34%);
 	animation: circleadmin1 2s .6s infinite ease-in-out;
 	top: 15%;
 }
-.circle_admin:nth-child(25),.circle_admin:nth-child(45) {
+
+.circle_admin:nth-child(25),
+.circle_admin:nth-child(45) {
 	background: linear-gradient(317deg, rgba(29, 98, 240, 0.7595413165266106) 0%, rgba(7, 238, 240, 1) 19%, rgba(29, 98, 240, 1) 50%, rgba(29, 98, 240, 1) 71%, rgba(29, 81, 187, 1) 100%);
 	animation: circleadmin1 2s .8s infinite ease-in-out;
 	top: 20%;
 }
-.circle_admin:nth-child(26),.circle_admin:nth-child(46) {
+
+.circle_admin:nth-child(26),
+.circle_admin:nth-child(46) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(240, 65, 7, 1) 34%);
 	animation: circleadmin1 2s 1s infinite ease-in-out;
 	top: 25%;
 }
-.circle_admin:nth-child(27),.circle_admin:nth-child(47) {
+
+.circle_admin:nth-child(27),
+.circle_admin:nth-child(47) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(194, 7, 240, 1) 34%);
 	animation: circleadmin1 2s 1.2s infinite ease-in-out;
 	top: 30%;
 }
-.circle_admin:nth-child(28),.circle_admin:nth-child(48) {
+
+.circle_admin:nth-child(28),
+.circle_admin:nth-child(48) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(235, 240, 7, 1) 34%);
 	animation: circleadmin1 2s 1.4s infinite ease-in-out;
 	top: 35%;
 }
-.circle_admin:nth-child(29),.circle_admin:nth-child(49) {
+
+.circle_admin:nth-child(29),
+.circle_admin:nth-child(49) {
 	background: linear-gradient(317deg, rgba(29, 98, 240, 0.7595413165266106) 0%, rgba(7, 238, 240, 1) 19%, rgba(29, 98, 240, 1) 50%, rgba(29, 98, 240, 1) 71%, rgba(29, 81, 187, 1) 100%);
 	animation: circleadmin1 2s 1.6s infinite ease-in-out;
 	top: 40%;
 }
-.circle_admin:nth-child(30),.circle_admin:nth-child(50) {
+
+.circle_admin:nth-child(30),
+.circle_admin:nth-child(50) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(240, 65, 7, 1) 34%);
 	animation: circleadmin1 2s 1.8s infinite ease-in-out;
 	top: 45%;
 }
-.circle_admin:nth-child(31),.circle_admin:nth-child(51) {
+
+.circle_admin:nth-child(31),
+.circle_admin:nth-child(51) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(194, 7, 240, 1) 34%);
 	animation: circleadmin1 2s 2s infinite ease-in-out;
 	top: 50%;
 }
-.circle_admin:nth-child(32),.circle_admin:nth-child(52) {
+
+.circle_admin:nth-child(32),
+.circle_admin:nth-child(52) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(235, 240, 7, 1) 34%);
 	animation: circleadmin1 2s 2.2s infinite ease-in-out;
 	top: 55%;
 }
-.circle_admin:nth-child(33),.circle_admin:nth-child(53) {
+
+.circle_admin:nth-child(33),
+.circle_admin:nth-child(53) {
 	background: linear-gradient(317deg, rgba(29, 98, 240, 0.7595413165266106) 0%, rgba(7, 238, 240, 1) 19%, rgba(29, 98, 240, 1) 50%, rgba(29, 98, 240, 1) 71%, rgba(29, 81, 187, 1) 100%);
 	animation: circleadmin1 2s 2.4s infinite ease-in-out;
 	top: 60%;
 }
-.circle_admin:nth-child(34),.circle_admin:nth-child(54) {
+
+.circle_admin:nth-child(34),
+.circle_admin:nth-child(54) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(240, 65, 7, 1) 34%);
 	animation: circleadmin1 2s 2.6s infinite ease-in-out;
 	top: 65%;
 }
-.circle_admin:nth-child(35),.circle_admin:nth-child(55) {
+
+.circle_admin:nth-child(35),
+.circle_admin:nth-child(55) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(194, 7, 240, 1) 34%);
 	animation: circleadmin1 2s 2.8s infinite ease-in-out;
 	top: 70%;
 }
-.circle_admin:nth-child(36),.circle_admin:nth-child(56) {
+
+.circle_admin:nth-child(36),
+.circle_admin:nth-child(56) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(235, 240, 7, 1) 34%);
 	animation: circleadmin1 2s 3s infinite ease-in-out;
 	top: 75%;
 }
-.circle_admin:nth-child(37),.circle_admin:nth-child(57) {
+
+.circle_admin:nth-child(37),
+.circle_admin:nth-child(57) {
 	background: linear-gradient(317deg, rgba(29, 98, 240, 0.7595413165266106) 0%, rgba(7, 238, 240, 1) 19%, rgba(29, 98, 240, 1) 50%, rgba(29, 98, 240, 1) 71%, rgba(29, 81, 187, 1) 100%);
 	animation: circleadmin1 2s 3.2s infinite ease-in-out;
 	top: 80%;
 }
-.circle_admin:nth-child(38),.circle_admin:nth-child(58) {
+
+.circle_admin:nth-child(38),
+.circle_admin:nth-child(58) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(240, 65, 7, 1) 34%);
 	animation: circleadmin1 2s 3.4s infinite ease-in-out;
 	top: 85%;
 }
-.circle_admin:nth-child(39),.circle_admin:nth-child(59) {
+
+.circle_admin:nth-child(39),
+.circle_admin:nth-child(59) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(194, 7, 240, 1) 34%);
 	animation: circleadmin1 2s 3.6s infinite ease-in-out;
 	top: 90%;
 }
-.circle_admin:nth-child(40),.circle_admin:nth-child(60) {
+
+.circle_admin:nth-child(40),
+.circle_admin:nth-child(60) {
 	background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(235, 240, 7, 1) 34%);
 	animation: circleadmin1 2s 3.8s infinite ease-in-out;
 	top: 95%;
 }
-.circle_admin:nth-child(n+21){
+
+.circle_admin:nth-child(n+21) {
 	left: 1%;
 }
-.circle_admin:nth-child(n+41){
+
+.circle_admin:nth-child(n+41) {
 	left: unset !important;
 	right: 1%;
 }
+
 .circle_admin:nth-child(1) {
 	left: 5%;
 	animation-delay: .2s;
@@ -2125,6 +2172,7 @@ select.form-control option:disabled {
 		transform: scale(1.1);
 	}
 }
+
 /* @keyframes circleadmin1 {
 	0% {
 		left: 0;
@@ -2142,31 +2190,36 @@ select.form-control option:disabled {
 	}
 } */
 @keyframes circleadmin1 {
-	0% {		
+	0% {
 		transform: scale(0.9);
 	}
+
 	50% {
 		transform: scale(1.1);
 		background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(240, 65, 7, 1) 34%);
 	}
+
 	100% {
 		transform: scale(0.9);
 		background: linear-gradient(153deg, rgba(240, 53, 29, 0.7231267507002801) 0%, rgba(235, 240, 7, 1) 34%);
 	}
 }
-.content-wrapper{
+
+.content-wrapper {
 	overflow: hidden;
 	position: relative;
 }
 
 @keyframes chuyendongtuyet {
-	0%{
+	0% {
 		top: 0;
 	}
-	100%{
+
+	100% {
 		top: 100%;
 	}
 }
+
 /* .content-wrapper{
 	background-image: url(https://css-tricks.com/examples/StarryNightMoving/images/foreground.png), 
                         url(https://css-tricks.com/examples/StarryNightMoving/images/background.png);
@@ -2177,4 +2230,35 @@ select.form-control option:disabled {
     0%{background-position: 0 0, 1000px 0;
     }
     100%{background-position: 200px -20px, 200px 20px;}
-  } */
+} */
+
+.img_sanpham img{
+	max-height: 200px;
+	aspect-ratio: 1/1;
+	object-fit: contain;
+	border-radius: 12px;
+	overflow: hidden;
+}
+.title_sanpham{
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+.gia_sanpham span{
+	font-size: 18px;
+	color: red;
+	font-weight: 600;
+}
+.nguoidang_sanpham span{
+	display: block;
+}
+.nguoidang_sanpham span:not(:first-child){
+	font-size: 18px;
+	font-weight: 600;
+	color: #0353b0;
+	margin-top: 8px;
+}
+.box_infor_product_aff{
+	display: none;
+}

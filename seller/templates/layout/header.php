@@ -17,14 +17,26 @@ if (isset($config['order']['active'])) {
     $orderNotify = $d->rawQuery("select id from #_order where tinhtrang=1");
     $countNotify += count($orderNotify);
 }
-?>
 
+?>
+<!-- Kiểm tra tài khoản bán hàng -->
+ <!-- Sắp hết hạn -->
 <?php if ($func->checkUserSeller_duration($_SESSION[$login_admin]['id'])['check'] == 0) { ?>
     <div class="p-3 mb-2 bg-warning text-dark text-center">
-        <strong>Tài khoản sẽ hết hạn vào <?=date("d/m/Y", $func->getAdminCurrent($_SESSION[$login_admin]['id'])['thoihan'])?></strong>
-        <a href="<?=$config_base?>gia-han" class="btn btn-light ml-3" target="_blank">Liên hệ gia hạn</a>
+        <strong>Tài khoản sẽ hết hạn vào <?= date("d/m/Y", $func->getAdminCurrent($_SESSION[$login_admin]['id'])['thoihan']) ?></strong>
+        <a href="<?= $config_base ?>gia-han" class="btn btn-light ml-3" target="_blank">Liên hệ gia hạn</a>
     </div>
-<?php } ?>
+<?php } elseif ($func->checkUserSeller_duration($_SESSION[$login_admin]['id'])['check'] == -1) {
+    // Đã hết hạn
+    // kết quả: quay lại trang login
+    unset($_SESSION[$login_admin]);
+    unset($_SESSION['list_quyen']);
+    unset($_COOKIE['login_admin']);
+    unset($_COOKIE['login_member_session']);
+    setcookie('login_admin', "", -1, '/');
+    setcookie('login_member_session', "", -1, '/');
+    $func->transfer("Tài khoản đã hết hạn! Vui lòng liên hệ để được gia hạn", "index.php?com=user&act=login", false);
+} ?>    
 
 
 <!-- Header -->

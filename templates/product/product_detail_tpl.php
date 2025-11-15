@@ -73,26 +73,26 @@
                         <li class="w-clear">
                             <label class="attr-label-pro-detail">Thời gian:</label>
                             <div class="time_sanpham d-inline">
-                            <i class="far fa-clock"></i> 3 ngày trước
+                                <i class="far fa-clock"></i> 3 ngày trước
                             </div>
                         </li>
                     </ul>
                     <hr>
                     <div class="box_user">
                         <img width="30" src="assets/images/userr.png" alt="">
-                        <div class="title_user"><?=$row_detail['nguoidang']?> </div>
+                        <div class="title_user"><?= $userCurrent['ten'] ?> </div>
                     </div>
                     <hr>
-                    <a href="tel:<?= preg_replace('/[^0-9]/', '', $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai']); ?>" class="box_call">
-                        <i class="fas fa-phone-alt"></i> Gọi điện: <span><?= $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai'] ?></span>
+                    <a href="tel:<?= preg_replace('/[^0-9]/', '', $userCurrent['dienthoai']); ?>" class="box_call">
+                        <i class="fas fa-phone-alt"></i> Gọi điện: <span><?= $userCurrent['dienthoai'] ?></span>
                     </a>
                     <hr>
                     <div class="box_chat">
-                        <i class="fas fa-comment-alt-lines"></i> Chat: <span><?= $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai'] ?></span>
+                        <i class="fas fa-comment-alt-lines"></i> Chat: <span><?= $userCurrent['dienthoai'] ?></span>
                     </div>
                     <hr>
                     <div class="box_chat">
-                        <img width="40" src="assets/images/Logo-Zalo.webp" alt=""> <span><?= $func->getTable($row_detail['id_nguoiban'], 'user')['dienthoai'] ?></span>
+                        <img width="40" src="assets/images/Logo-Zalo.webp" alt=""> <span><?= $userCurrent['dienthoai'] ?></span>
                     </div>
                     <div class="desc-pro-detail">
                         <?= (isset($row_detail['mota' . $lang]) && $row_detail['mota' . $lang] != '') ? htmlspecialchars_decode($row_detail['mota' . $lang]) : '' ?>

@@ -26,7 +26,7 @@
 
                 <!-- Group -->
                 <?php $disabled = array();
-                if (isset($config['group'])) {
+                if (isset($config['group'])&&false) {
                     foreach ($config['group'] as $key => $value) { ?>
                         <li class="nav-item has-treeview menu-group">
                             <a class="nav-link" href="#" title="Quản lý <?= $key ?>">
@@ -402,7 +402,7 @@
                                 <a class="nav-link <?= $active ?>" href="#" title="Quản lý <?= $v['title_main'] ?>">
                                     <img style="margin-right: 5px;" src="../../assets/images/Category.png" alt="">
                                     <p>
-                                        Quản lý <?= $v['title_main'] ?>
+                                        Quản lý <?= $v['title_main'] ?> 
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
@@ -457,12 +457,29 @@
                                     if (isset($kiemtra) && $kiemtra == true) if ($func->check_access('product', 'man', $k, null, 'phrase-1')) $none = "d-none";
                                     if ($com == 'product' && ($act == 'man' || $act == 'add' || $act == 'edit' || $act == 'copy' || $kind == 'man') && $k == $_GET['type']) $active = "active";
                                     ?>
-                                    <li class="nav-item <?= $none ?>"><a class="nav-link <?= $active ?>"
+                                    <li class="nav-item <?= $none ?>">
+                                        <a class="nav-link <?= $active ?>"
                                             href="index.php?com=product&act=man&type=<?= $k ?>" title="<?= $v['title_main'] ?>"><i
                                                 class="nav-icon text-sm far fa-caret-square-right"></i>
                                             <p><?= $v['title_main'] ?> </p>
-                                        </a></li>
-                                        
+                                        </a>
+                                    </li>
+                                    <?php
+                                     if ($k!='san-pham-temp'){
+                                         $active = "active";
+                                         $none = '';
+                                     }else{
+                                        $active = "";
+                                        $none = 'd-none';
+                                     }
+                                    ?>
+                                    <li class="nav-item <?= $none ?> <?=$act?>">
+                                        <a class="nav-link <?= $active ?>"
+                                            href="index.php?com=product&act=aff&type=<?= $k ?>" title="<?= $v['title_main'] ?>"><i
+                                                class="nav-icon text-sm far fa-caret-square-right"></i>
+                                            <p><?= $v['title_main'] ?> affiliate</p>
+                                        </a>
+                                    </li>
                                     <?php if (isset($v['brand']) && $v['brand'] == true) {
                                         $none = "";
                                         $active = "";

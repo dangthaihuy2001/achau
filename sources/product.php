@@ -25,7 +25,18 @@ if ($id != '') {
 
 
 	/* Lấy sản phẩm detail */
-	$row_detail = $d->rawQueryOne("select p.*, u.ten as nguoidang from #_product p left join #_user u on p.id_nguoiban = u.id where p.id = ? and p.type = ? and p.hienthi > 0 limit 0,1", array($id, $type));
+	$row_detail = $d->rawQueryOne("select * from #_product where id = ? and type = ? and hienthi > 0 limit 0,1", array($id, $type));
+
+	if(!isset($_GET['aff'])){
+		$userCurrent = $d->rawQueryOne("select ten, dienthoai from #_user where id = ? limit 0,1", array($row_detail['id_nguoiban']));
+	}else{
+		$userCurrent = $d->rawQueryOne("select ten, dienthoai from #_user where affiliate_code = ? limit 0,1", array($_GET['aff']));
+		if(!$userCurrent){
+			$userCurrent = $d->rawQueryOne("select ten, dienthoai from #_user where id = ? limit 0,1", array($row_detail['id_nguoiban']));
+		}
+	}
+
+	
 	$getRating = $d->rawQuery("select id,rating,id_product from #_danhgia where id_product = ? order by id asc", array($id));
 	if (count($getRating)) {
 		$sumRating = array();
@@ -178,22 +189,39 @@ if ($id != '') {
 
 	/* Lấy sản phẩm */
 	$where = "";
-	$where = "a.id_list = ? and a.type = ? and a.hienthi > 0";
+	$where = "p.id_list = ? and p.type = ? and p.hienthi > 0";
 	$params = array($idl, $type);
 
-	$filterCity =  $func->addParamsSQLCity($id_city_current,$params,"a.");
-	$where .= $filterCity[0];
-	$params = $filterCity[1];
-	
-	
+	if(isset($_GET['id_city'])){
+		$where .= " and p.id_city = ?";
+		array_push($params, $_GET['id_city']);
+		array_push($params, $_GET['id_city']);
+	}elseif(isset($_COOKIE['location'])&&$_COOKIE['location']!=''){
+		$where .= " and p.id_city = ?";
+		array_push($params, $_COOKIE['location']);
+		array_push($params, $_COOKIE['location']);
+	}
+
+	// $filterCity =  $func->addParamsSQLCity($id_city_current,$params,"a.");
+	// $where .= $filterCity[0];
+	// $params = $filterCity[1];
 
 
 	$curPage = $get_page;
 	$per_page = 20;
 	$startpoint = ($curPage * $per_page) - $per_page;
 	$limit = " limit " . $startpoint . "," . $per_page;
+
 	$sql = "select a.* from #_product a where $where order by a.stt,a.id desc $limit";
-	$product = $d->rawQuery($sql, $params);
+
+	$sanpham = "(SELECT p.*, NULL AS aff, 'goc' AS source FROM #_product p WHERE $where ORDER BY p.stt, p.id DESC LIMIT 12) 
+    UNION ALL
+    (SELECT p.*,u.affiliate_code AS aff,'affiliate' AS source FROM #_affiliates a INNER JOIN #_product p ON a.product_id = p.id LEFT JOIN #_user u ON u.id = a.user_id WHERE u.id_city = ? AND p.noibat > 0 AND p.hienthi > 0 AND p.type = 'san-pham' ) ORDER BY stt, id DESC";
+
+
+	$product = $d->rawQuery($sanpham, $params);
+	//	var_dump($sanpham, $params);die();
+	
 	$sqlNum = "select count(*) as 'num' from #_product a where $where order by a.stt,a.id desc";
 	$count = $d->rawQueryOne($sqlNum, $params);
 	$total = $count['num'];

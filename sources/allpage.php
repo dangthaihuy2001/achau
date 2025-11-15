@@ -23,7 +23,7 @@ $cs = $d->rawQuery("select ten$lang, tenkhongdau$lang from #_news where type = ?
 //update
 $tinhthanh = $d->rawQuery("select ten, id, photo,tenkhongdau from #_city where hienthi >0 order by stt,id desc");
 $tinhthanh_nb = $d->rawQuery("select ten, id, photo,tenkhongdau from #_city where hienthi >0 and noibat > 0 order by stt,id desc");
-$thongbaoUser = $d->rawQuery("select ten$lang, tenkhongdau$lang,motavi, ngaytao, link, luachon from #_news where type = ? order by stt,id desc ", array('thong-bao-user'));
+$thongbaoUser = $d->rawQuery("select ten$lang, tenkhongdau$lang,motavi, ngaytao, link, luachon from #_news where type = ? and hienthi > 0 order by stt,id desc ", array('thong-bao-user'));
 
 $countThongbao = count($thongbaoUser);
 

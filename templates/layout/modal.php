@@ -93,7 +93,7 @@
 		</div>
 		<div class="box_m_city">
 			<div class="search_m_city">
-				<input type="text" placeholder="Tìm tỉnh thành">
+				<input type="text" id="search_city_modal" placeholder="Tìm tỉnh thành">
 				<button><i class="far fa-search"></i></button>
 			</div>
 			<div class="items_m_city">

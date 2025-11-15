@@ -237,9 +237,13 @@
 			                        <input type="checkbox" class="custom-control-input" name="dataQuyen[]" id="quyen-product-edit-<?=$key?>" value="product_edit_<?=$key?>" <?=(isset($ds_quyen) && in_array('product_edit_'.$key, $ds_quyen))?'checked':'';?>>
 			                        <label for="quyen-product-edit-<?=$key?>" class="custom-control-label font-weight-normal">Chỉnh sửa</label>
 			                    </div>
-			                    <div class="custom-control custom-checkbox d-inline-block align-middle mb-2 text-md">
+			                    <div class="custom-control custom-checkbox d-inline-block align-middle mb-2 mr-4 text-md">
 			                        <input type="checkbox" class="custom-control-input" name="dataQuyen[]" id="quyen-product-delete-<?=$key?>" value="product_delete_<?=$key?>" <?=(isset($ds_quyen) && in_array('product_delete_'.$key, $ds_quyen))?'checked':'';?>>
 			                        <label for="quyen-product-delete-<?=$key?>" class="custom-control-label font-weight-normal">Xóa</label>
+			                    </div>
+								<div class="custom-control custom-checkbox d-inline-block align-middle mb-2 text-md">
+			                        <input type="checkbox" class="custom-control-input" name="dataQuyen[]" id="quyen-product-aff-<?=$key?>" value="product_aff_<?=$key?>" <?=(isset($ds_quyen) && in_array('product_aff_'.$key, $ds_quyen))?'checked':'';?>>
+			                        <label for="quyen-product-aff-<?=$key?>" class="custom-control-label font-weight-normal">Affiliate</label>
 			                    </div>
 							</div>
 						</div>

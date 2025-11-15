@@ -120,9 +120,9 @@
                                 <i class="fal fa-sign-in"></i> Đăng nhập
                             </a>
                         <?php } ?>
-                        <a href="dang-tin" class="menu_logout">
+                        <!-- <a href="dang-tin" class="menu_logout">
                             <i class="fal fa-edit"></i> Đăng tin
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>

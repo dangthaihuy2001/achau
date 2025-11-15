@@ -1,41 +1,57 @@
 <?php
 if (!defined('SOURCES')) die("Error");
-   
-    $slider = $d->rawQuery("select ten$lang, mota$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('slide'));
-    $slider2 = $d->rawQuery("select ten$lang, mota$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('slide2'));
 
-    $kh = $d->rawQuery("select ten$lang, mota$lang, photo,diachi,nghenghiep, noidung$lang from #_news where type = ? and hienthi > 0 order by stt,id desc ", array('feedback'));
+$slider = $d->rawQuery("select ten$lang, mota$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('slide'));
+$slider2 = $d->rawQuery("select ten$lang, mota$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('slide2'));
 
-    $pronb_list = $d->rawQueryOne("select count(id) as numb from #_product where noibat>0 and hienthi>0 and type='san-pham'");
-    $danhmuc_list = $d->rawQuery("select ten$lang, tenkhongdauvi, mota$lang, ngaytao, id from #_product_list where hienthi>0 and type='san-pham' order by stt,id desc");
-    $danhmucnb_list = $d->rawQuery("select ten$lang, tenkhongdauvi, mota$lang, ngaytao, id from #_product_list where noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 0,3");
-    $danhmucnb_list2 = $d->rawQuery("select ten$lang, tenkhongdauvi, mota$lang, ngaytao, id from #_product_list where noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 3,5");
+$kh = $d->rawQuery("select ten$lang, mota$lang, photo,diachi,nghenghiep, noidung$lang from #_news where type = ? and hienthi > 0 order by stt,id desc ", array('feedback'));
 
-    $sanpham_moi = $d->rawQuery("select * from #_product where noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 12");
+$pronb_list = $d->rawQueryOne("select count(id) as numb from #_product where noibat>0 and hienthi>0 and type='san-pham'");
+$danhmuc_list = $d->rawQuery("select ten$lang, tenkhongdauvi, mota$lang, ngaytao, id from #_product_list where hienthi>0 and type='san-pham' order by stt,id desc");
+$danhmucnb_list = $d->rawQuery("select ten$lang, tenkhongdauvi, mota$lang, ngaytao, id from #_product_list where noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 0,3");
+$danhmucnb_list2 = $d->rawQuery("select ten$lang, tenkhongdauvi, mota$lang, ngaytao, id from #_product_list where noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 3,5");
+
+$sanpham_moi = $d->rawQuery("select * from #_product where noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 12");
+
+$sp_afl = $d->rawQuery("select p.* from #_affiliates a inner join #_product p on a.product_id = p.id where p.noibat>0 and p.hienthi>0 and p.type='san-pham' order by p.stt,p.id desc");
+$sanpham = array_merge($sanpham_moi, $sp_afl);
+
+$ct_list = $d->rawQueryOne("select count(id) as numb from #_news where noibat>0 and hienthi>0 and type='dich-vu'");
+
+
+
+$tintuc = $d->rawQuery("select ten$lang, tenkhongdau$lang, mota$lang, ngaytao, id, photo from #_news where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc ", array('tin-tuc'));
+
+$thongbao = $d->rawQuery("select ten$lang, tenkhongdau$lang, id, photo,mota$lang from #_news where type = ? and hienthi > 0 order by stt,id desc ", array('thong-bao'));
+
+$video = $d->rawQuery("select ten$lang, id, video from #_news where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc ", array('video'));
+
+$nhommathang = $d->rawQuery("select ten$lang, tenkhongdauvi, id,photo from #_product_list where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc", array('san-pham'));
+
+//
+$tienich = $d->rawQuery("select ten$lang, photo,tenkhongdauvi from #_news where type = ? and hienthi > 0 order by stt,id desc", array('tien-ich'));
+$dichvumoigioi = $d->rawQuery("select ten$lang, photo,tenkhongdauvi from #_news where type = ? and hienthi > 0 order by stt,id desc", array('dich-vu-moi-gioi'));
+$thanhtuu = $d->rawQuery("select photo, tenvi,motavi from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('thanh-tuu'));
+$batdongsan = $d->rawQuery("select * from #_product where hienthi>0 and type='bat-dong-san' order by stt,id desc limit 6");
+//$tinhthanh = $d->rawQuery("select ten$lang, photo,tenkhongdauvi,motavi from #_news where type = ? and hienthi > 0 order by stt,id desc", array('tinh-thanh'));
+
+
+if (isset($_COOKIE['location'])) {
+    $sanpham = array();
+    // $sanpham_moi = $d->rawQuery("select * from #_product where id_city = ? and noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 12",array($_COOKIE['location']));
     
-    $ct_list = $d->rawQueryOne("select count(id) as numb from #_news where noibat>0 and hienthi>0 and type='dich-vu'");
+    //  $sp_afl = $d->rawQuery("select p.*,u.affiliate_code as aff from #_affiliates a inner join #_product p on a.product_id = p.id left join #_user u on u.id = a.user_id where u.id_city = ? and p.noibat>0 and p.hienthi>0 and p.type='san-pham' order by p.stt,p.id desc",array($_COOKIE['location']));
 
+     
 
-
-    $tintuc = $d->rawQuery("select ten$lang, tenkhongdau$lang, mota$lang, ngaytao, id, photo from #_news where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc ", array('tin-tuc'));
-
-    $thongbao = $d->rawQuery("select ten$lang, tenkhongdau$lang, id, photo,mota$lang from #_news where type = ? and hienthi > 0 order by stt,id desc ", array('thong-bao'));
-
-    $video = $d->rawQuery("select ten$lang, id, video from #_news where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc ", array('video'));
-
-    $nhommathang = $d->rawQuery("select ten$lang, tenkhongdauvi, id,photo from #_product_list where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc", array('san-pham'));
-
-    //
-    $tienich = $d->rawQuery("select ten$lang, photo,tenkhongdauvi from #_news where type = ? and hienthi > 0 order by stt,id desc", array('tien-ich'));
-    $dichvumoigioi = $d->rawQuery("select ten$lang, photo,tenkhongdauvi from #_news where type = ? and hienthi > 0 order by stt,id desc", array('dich-vu-moi-gioi'));
-    $thanhtuu = $d->rawQuery("select photo, tenvi,motavi from #_photo where type = ? and hienthi > 0 order by stt,id desc", array('thanh-tuu'));
-    $batdongsan = $d->rawQuery("select * from #_product where hienthi>0 and type='bat-dong-san' order by stt,id desc limit 6");
-    //$tinhthanh = $d->rawQuery("select ten$lang, photo,tenkhongdauvi,motavi from #_news where type = ? and hienthi > 0 order by stt,id desc", array('tinh-thanh'));
+    // $sanpham = array_merge($sanpham_moi, $sp_afl);
+    $sanpham = $d->rawQuery("(SELECT p.*, NULL AS aff, 'goc' AS source FROM #_product p WHERE p.id_city = ? AND p.noibat > 0 AND p.hienthi > 0 AND p.type = 'san-pham' ORDER BY p.stt, p.id DESC LIMIT 12) 
+    UNION ALL
+        (SELECT p.*,u.affiliate_code AS aff,'affiliate' AS source FROM #_affiliates a INNER JOIN #_product p ON a.product_id = p.id LEFT JOIN #_user u ON u.id = a.user_id WHERE u.id_city = ? AND p.noibat > 0 AND p.hienthi > 0 AND p.type = 'san-pham' ) ORDER BY stt, id DESC", array($_COOKIE['location'], $_COOKIE['location']));
     
-    
-    if(isset($_COOKIE['location'])){
-        $sanpham_moi = $d->rawQuery("select * from #_product where id_city = ? and noibat>0 and hienthi>0 and type='san-pham' order by stt,id desc limit 12",array($_COOKIE['location']));
-    }
+                       
+                        
+}
 
 /* SEO */
 $seoDB = $seo->getSeoDB(0, 'setting', 'capnhat', 'setting');

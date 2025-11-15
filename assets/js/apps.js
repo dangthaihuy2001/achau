@@ -681,7 +681,7 @@ $('.send_danhgia').click(function () {
                 $('.result_danhgia').append(result);
                 setTimeout(function () {
                     checktime = true;
-                }, 10000);           
+                }, 10000);
             }
         });
         $.ajax({
@@ -692,7 +692,7 @@ $('.send_danhgia').click(function () {
             success: function (result) {
                 $('.color_rating').css({
                     width: (result * 20) + "%",
-                });         
+                });
             }
         });
     }
@@ -702,6 +702,14 @@ $('.color_rating').css({
     width: ($('.color_rating').data("ratingcolor") * 20) + "%",
 });
 
+
+$(document).ready(function() {
+    $(".modal-container").on("click", ".item_m--city", function() {
+        document.cookie = "location=" + $(this).data('id');
+        closeModal()
+        window.location.href = LINK_CURRENT
+    });
+});
 /* Ready */
 $(document).ready(function () {
     NN_FRAMEWORK.loadmap();

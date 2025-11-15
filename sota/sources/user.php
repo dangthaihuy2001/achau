@@ -743,6 +743,8 @@ function save_item_admin_seller()
 		if (isset($data['password']) && ($data['password'] == '')) $func->transfer("Chưa nhập mật khẩu", "index.php?com=user&act=add_admin_seller&p=" . $curPage, false);
 		$data['password'] = md5($config['website']['secret'] . $data['password'] . $config['website']['salt']);
 
+		$data['affiliate_code'] = $func->stringRandom(2).time();
+		
 		if ($d->insert('user', $data)) $func->transfer("Lưu dữ liệu thành công", "index.php?com=user&act=man_admin_seller&p=" . $curPage);
 		else $func->transfer("Lưu dữ liệu bị lỗi", "index.php?com=user&act=man_admin_seller", false);
 	}

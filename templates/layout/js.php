@@ -3,6 +3,7 @@
     var NN_FRAMEWORK = NN_FRAMEWORK || {};
     var CONFIG_BASE = '<?= $config_base ?>';
     var SOURCE = '<?= $source ?>';
+    var LINK_CURRENT = '<?= $_SERVER['HTTP_REFERER']; ?>';
     var WEBSITE_NAME = '<?= (isset($setting['ten' . $lang]) && $setting['ten' . $lang] != '') ? $setting['ten' . $lang] : '' ?>';
     var TIMENOW = '<?= date("d/m/Y", time()) ?>';
     var SHIP_CART = <?= (isset($config['order']['ship']) && $config['order']['ship'] == true) ? 'true' : 'false' ?>;
@@ -74,6 +75,22 @@ echo $js->getJs();
 </script>
 
 <script>
+    $('#search_city_modal').keyup(function() {
+        $.ajax({
+            type: "POST",
+            url: 'ajax/ajax_tinh.php',
+            dataType: 'html',
+            data: {
+                key: $('#search_city_modal').val(),
+            },
+            success: function(result) {
+                console.log(result)
+                $('.items_m_city').html(result)
+
+
+            }
+        });
+    })
     $('.btn_readmore_p').click(function() {
         var countP = $('.btn_readmore_p').data('p');
         $.ajax({
@@ -81,12 +98,12 @@ echo $js->getJs();
             url: 'ajax/ajax_load_p.php',
             dataType: 'html',
             data: {
-                p: countP,   
+                p: countP,
             },
             success: function(result) {
                 $('.items_sanpham').append(result)
-                $('.btn_readmore_p').data('p',parseInt($('.btn_readmore_p').data('p'))+1)
-                
+                $('.btn_readmore_p').data('p', parseInt($('.btn_readmore_p').data('p')) + 1)
+
             }
         });
     })
@@ -156,11 +173,12 @@ echo $js->getJs();
         }
         closeModal()
     })
-    $('.item_m--city').click(function() {
-        document.cookie = "location=" + $(this).data('id');
 
-        closeModal()
-    })
+    // $('.item_m--city').click(function() {
+    //     document.cookie = "location=" + $(this).data('id');
+    //     closeModal() 
+    // })
+
     $('.menu_noti').click(function(e) {
         if (!$(this).hasClass('active')) {
             $(this).addClass('active')
@@ -332,7 +350,7 @@ echo $js->getJs();
     });
     $(document).ready(function() {
 
-        $('.support-content').hide();
+        $('.support-content').show();
 
         $('a.btn-support').click(function(e) {
             e.stopPropagation();
@@ -428,7 +446,11 @@ echo $js->getJs();
         }
         return false;
     });
+
+   
 </script>
+
+
 <?php if (isset($config['googleAPI']['recaptcha']['active']) && $config['googleAPI']['recaptcha']['active'] == true) { ?>
     <!-- Js Google Recaptcha V3 -->
     <?php if ($source == 'contact' || $source == 'dangkydaily') { ?>

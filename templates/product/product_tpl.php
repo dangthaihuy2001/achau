@@ -3,7 +3,7 @@
     <?php if (isset($product) && count($product) > 0) { ?>
         <div class="items_sanpham">
             <?php foreach ($product as $key => $value) { ?>
-                <a href="<?= $value['tenkhongdauvi'] ?>-<?= $value['id'] ?>" class="item_sanpham">
+                <a href="<?= $value['tenkhongdauvi'] ?>-<?= $value['id'] ?><?=isset($value['aff'])?'?aff='.$value['aff']:''?>" class="item_sanpham">
                     <div class="img_sanpham scale-img">
                         <img class="skeleton mm-lazyload" data-src="<?= UPLOAD_PRODUCT_L . $value['photo'] ?>" alt="<?= $value['tenvi'] ?>" title="<?= $value['tenvi'] ?>">
                     </div>

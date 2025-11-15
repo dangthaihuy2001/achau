@@ -67,6 +67,7 @@ else $dfgallery = '';
 		{
 			$kiemtra = true;
 			if( $act != 'save' &&
+				$act != 'save_aff' &&
 				$act != 'save_list' &&
 				$act != 'save_cat' &&
 				$act != 'save_item' &&
@@ -93,9 +94,12 @@ else $dfgallery = '';
 						if($quyen_user == '_'){
 							$quyen_user=='';
 						}
+						
 						if(isset($_SESSION['list_quyen']))
 						{
-							if(!in_array($quyen_user, $_SESSION['list_quyen']))
+							
+							if(!in_array($quyen_user, $_SESSION['list_quyen'])&&
+								($quyen_user !='product_add_aff_san-pham'&&$quyen_user !='product_save_aff_san-pham'&&$quyen_user !='product_man_aff_san-pham'&&$quyen_user !='product_delete_aff_san-pham'))
 							{
 								$func->transfer("Bạn không có quyền vào khu vực này","index.php", false);
 								exit;
